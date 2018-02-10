@@ -1,0 +1,30 @@
+{
+  "name": "petminder",
+  "version": "1.0.0",
+  "description": "repository for Pet Minder 401",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PetMinder401/PetMinder.git"
+  },
+  "keywords": [
+    "pets",
+    "medication",
+    "reminders"
+  ],
+  "author": "Joe Dean Roger Liza",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PetMinder401/PetMinder/issues"
+  },
+  "homepage": "https://github.com/PetMinder401/PetMinder#readme",
+  "dependencies": {
+    "jest": "^22.2.2"
+  }
+}
