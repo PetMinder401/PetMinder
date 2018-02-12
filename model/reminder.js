@@ -1,8 +1,5 @@
 'use strict';
 
-
-const Pet = require('./pet');
-const userModel = require('./userModel');
 const Medication = require('./medication');
 
 const mongoose = require('mongoose');
