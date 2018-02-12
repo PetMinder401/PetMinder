@@ -1,9 +1,6 @@
 'use strict';
 
 const Pet = require('./pet');
-const Reminder = require('./reminder');
-const Medication = require('./medication');
-
 
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
@@ -12,6 +9,7 @@ const mongoose = require('mongoose');
 
 const userModel = mongoose.Schema({
   'username' : { type: String, required: true, unique: true},
+  'email' : { type: String, required: true, unique: true},
   'password' : { type: String, required: true},
   'tokenSeed' : { type: String, unique: true},
   'Pets': {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'pet'},
