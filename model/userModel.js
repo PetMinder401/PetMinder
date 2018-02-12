@@ -39,16 +39,14 @@ userModel.methods.comparePasswordHash = function(password) {
 
 userModel.methods.generateTokenSeed = function() {
   this.tokenSeed = crypto.randomBytes(64).toString('hex');
-  return this.save()// vinicio - making sure the compare hash (token seed) is unique
+  return this.save()
     .then(() => Promise.resolve(this.tokenSeed))
-    .catch(console.error); // This line is not very robust... potential loop
-  //.catch(() => this.generateTokenSeed()); // This line is not very robust... potential loop
+    .catch(console.error);
 };
 
 userModel.methods.generateToken = function() {
   return this.generatetokenSeed()
     .then(tokenSeed => {
-      // console.log(tokenSeed)
       return jwt.sign({token: tokenSeed}, process.env.APP_SECRET);
     })
     .catch(err => err);
