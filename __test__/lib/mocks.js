@@ -35,8 +35,8 @@ mocks.pet.createOne = () => {
       return new Pet({
         name: faker.name.firstName(),
         species: faker.random.words(1),
-        age: faker.random.number(),
-        weight: faker.random.number(),
+        age: faker.random.number({min:1, max:15}), //age 1yr-15yrs -liza
+        weight: faker.random.number({min:5, max:100}), //weight 5-100lbs -liza
         userId: createdUserMock.user._id,
       }).save();
     })
@@ -46,4 +46,7 @@ mocks.pet.createOne = () => {
       return resultMock;
     });
 };
-mocks.userModel.removeAll = () => Promise.all([userModel.remove()]);
+
+//TODO: add mocks for reminder
+
+mocks.userModel.removeAll = () => Promise.all([UserModel.remove()]);
