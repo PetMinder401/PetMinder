@@ -1,15 +1,16 @@
 'use strict';
 
 const Pet = require('../model/pet');
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser').json();
 const errorHandler = require('../lib/error-handler');
 const bearerAuthMiddleware = require('../lib/bearer-auth-middleware');
 
 const ERROR_MESSAGE = 'Authorization Failed';
 
 module.exports = router => {
-  router.route('/medication/:id?')
+  router.route('/pet/:id?')
     .post(bearerAuthMiddleware, bodyParser, (req, res) => {
+      console.log('inside post for pet')
 
       req.body.userId = req.user._id;
 
