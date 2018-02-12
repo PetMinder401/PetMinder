@@ -2,7 +2,7 @@
 
 
 const Pet = require('./pet')
-const User = require('./user')
+const userModel = require('./userModel')
 const Medication = require('./medication')
 
 

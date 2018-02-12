@@ -1,7 +1,7 @@
 'use strict'
 
 
-const User = require('./user')
+const userModel = require('./userModel')
 const Reminder = require('./Reminder')
 const Medication = require('./medication')
 
