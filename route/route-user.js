@@ -12,17 +12,18 @@ module.exports = function(router) {
 
     let user = new User(req.body);
 
-    user.generatePasswordHash(pw)
+    user.generateTokenSeed(pw)
       .then(newUser => newUser.save())
       .then(userRes => userRes.generateToken())
       .then(token => res.status(201).json(token))
       .catch(err => errorHandler(err, res));
   });
+
   router.get('/signin', basicAuth, (req, res) => {
     User.findOne({ username: req.user.username })
       .then(user => 
         user
-          ? user.comparePasswordHash(req.auth.password)
+          ? user.compareTokenSeed(req.user.password)
           : Promise.reject(new Error('Authorization Failed. Username required.'))
       )
       .then(user => user.generateToken())

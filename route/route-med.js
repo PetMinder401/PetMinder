@@ -8,7 +8,7 @@ const bearerAuthMiddleware = require('../lib/bearer-auth-middleware');
 const ERROR_MESSAGE = 'Authorization Failed';
 
 module.exports = router => {
-  router.route('/pet/:id?')
+  router.route('/medication/:id?')
     .post(bearerAuthMiddleware, bodyParser, (req, res) => {
 
       req.body.userId = req.user._id;

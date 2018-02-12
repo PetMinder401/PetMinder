@@ -8,11 +8,11 @@ const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 
 const userModel = mongoose.Schema({
-  'username' : { type: String, required: true, unique: true},
-  'email' : { type: String, required: true, unique: true},
-  'password' : { type: String, required: true},
-  'tokenSeed' : { type: String, unique: true},
-  'Pets': {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'pet'},
+  username : { type: String, required: true, unique: true},
+  email : { type: String, required: true, unique: true},
+  password : { type: String, required: true},
+  tokenSeed : { type: String, unique: true},
+  Pets: {type: mongoose.Schema.Types.ObjectId, ref: 'pet'},
 }, {timestamps: true});
 
 
@@ -25,7 +25,7 @@ userModel.methods.generatePasswordHash = function(password) {
     .catch(err => err);
 };
 
-userModel.methods.comparePasswordHash = function(password) {
+userModel.methods.compareTokenSeed = function(password) {
   return new Promise((resolve, reject) => {
     bcrypt.compare(password, this.password, (err, valid) => {
       if(err) return reject(err);
