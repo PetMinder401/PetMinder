@@ -13,6 +13,8 @@ describe('error-handler', function() {
 
   this.pathError = new Error('path error');
 
+  this.authorization = new Error('authorization');
+
   this.objectId = new Error('objectid failed');
 
   this.duplicate = new Error('duplicate key');
@@ -22,6 +24,10 @@ describe('error-handler', function() {
   it('should respond with a status of 400', () => {
     let errRes = errHand(this.validation, this.res);
     expect(errRes.statusCode).toEqual(400);
+  });
+  it('should respond with a status of 401', () => {
+    let errRes = errHand(this.authorization, this.res);
+    expect(errRes.statusCode).toEqual(401);
   });
   it('should respond with a status of 404', () => {
     let errRes = errHand(this.pathError, this.res);
