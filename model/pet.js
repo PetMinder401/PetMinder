@@ -1,19 +1,19 @@
-'use strict'
+'use strict';
 
 
-const userModel = require('./userModel')
-const Reminder = require('./Reminder')
-const Medication = require('./medication')
+const userModel = require('./userModel');
+const Reminder = require('./Reminder');
+const Medication = require('./medication');
 
 
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const Pet = mongoose.Schema({
-'Name' : { type: String, required: true },
-'Species' : { type: String, required: true },
-'Age' : { type: Number, required: true },
-'Weight' : { type: Number, required: true },
-"Reminders": {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'reminder'},
-}, {timestamps: true})
+  'Name' : { type: String, required: true },
+  'Species' : { type: String, required: true },
+  'Age' : { type: Number, required: true },
+  'Weight' : { type: Number, required: true },
+  'Reminders': {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'reminder'},
+}, {timestamps: true});
 
-module.exports = mongoose.model('pets', Pet)
+module.exports = mongoose.model('pets', Pet);
