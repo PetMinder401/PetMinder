@@ -1,21 +1,21 @@
-'use strict'
+'use strict';
 
-const Pet = require('./pet')
-const Reminder = require('./reminder')
-const Medication = require('./medication')
+const Pet = require('./pet');
+const Reminder = require('./reminder');
+const Medication = require('./medication');
 
 
-const jwt = require('jsonwebtoken')
-const crypto = require('crypto')
-const bcrypt = require('bcrypt')
-const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
 
 const userModel = mongoose.Schema({
-'username' : { type: String, required: true, unique: true},
-'password' : { type: String, required: true},
-'tokenSeed' : { type: String, unique: true},
-'Pets': {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'pet'},
-}, {timestamps: true})
+  'username' : { type: String, required: true, unique: true},
+  'password' : { type: String, required: true},
+  'tokenSeed' : { type: String, unique: true},
+  'Pets': {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'pet'},
+}, {timestamps: true});
 
 
 userModel.methods.generatePasswordHash = function(password) {
@@ -49,9 +49,9 @@ userModel.methods.generateToken = function() {
   return this.generatetokenSeed()
     .then(tokenSeed => {
       // console.log(tokenSeed)
-      return jwt.sign({token: tokenSeed}, process.env.APP_SECRET)
+      return jwt.sign({token: tokenSeed}, process.env.APP_SECRET);
     })
     .catch(err => err);
 };
 
-module.exports = mongoose.model('userModels', userModel)
+module.exports = mongoose.model('userModels', userModel);
