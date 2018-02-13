@@ -1,7 +1,7 @@
 'use strict';
 
 const Med = require('../model/medication');
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser').json();
 const errorHandler = require('../lib/error-handler');
 const bearerAuthMiddleware = require('../lib/bearer-auth-middleware');
 
@@ -54,9 +54,10 @@ module.exports = router => {
     .delete(bearerAuthMiddleware, (req, res) => {
       return Med.findById(req.params.id)
         .then(med => {
-          if(med.userId.toString() === req.user._id.toString())
-            return med.remove();
-          return errorHandler(new Error(ERROR_MESSAGE), res);
+          //console.log(med._id);
+          if(med === null)
+            return errorHandler(new Error('ObjectID failed'), res);
+          return med.remove();
         })
         .then(() => res.sendStatus(204))
         .catch(err => errorHandler(err, res));
