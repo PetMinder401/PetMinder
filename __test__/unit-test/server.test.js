@@ -8,7 +8,7 @@ describe('Server Unit Test', () => {
   afterAll(server.stop);
 
   it('should return a promise rejection if the server is already running when started', () => {
-    server.start()
+    server.start;
       .catch(err => expect(err.message).toMatch(/Server Running/i));
   });
   it('should return a promise rejection if the server is not currently running', () => {
