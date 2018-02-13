@@ -7,6 +7,7 @@ describe('Server Unit Test', () => {
   // beforeEach(server.start);
   // afterEach(server.stop);
 
+
   // it('should return a promise rejection if the server is already running when started', () => {
   //   server.start()
   //     .catch(err => expect(err.message).toMatch(/Server Running/i));
@@ -18,5 +19,6 @@ describe('Server Unit Test', () => {
   // });
   it('SET UP FOR TRAVIS TEST -- REMOVE LATER', () => {
     expect(true).toBeTruthy();
+
   });
 });
