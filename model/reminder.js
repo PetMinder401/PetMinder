@@ -1,15 +1,13 @@
 'use strict';
 
-const Medication = require('./medication');
-
 const mongoose = require('mongoose');
 
 const Reminder = mongoose.Schema({
-  reminder : Boolean,
-  Medications : {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'medication'},
-  Frequency : Number,
-  Counter : Number,
-  Time : String,
+  userId: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'userModel'},
+  petId: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'pet'},
+  medication : {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'medication'},
+  frequency : Number,
+  counter : Number,
 }, {timestamps: true});
 
-module.exports = mongoose.model('reminders', Reminder);
+module.exports = mongoose.model('reminder', Reminder);
