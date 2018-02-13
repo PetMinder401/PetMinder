@@ -50,7 +50,7 @@ module.exports = router => {
         .then(med => {
           //console.log(med._id);
           if(med === null)
-            return errorHandler(new Error('objectid failed'), res);
+            return errorHandler(new Error('ObjectID failed'), res);
           return med.remove();
         })
         .then(() => res.sendStatus(204))

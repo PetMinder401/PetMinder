@@ -12,12 +12,13 @@ module.exports = function(router) {
 
     let user = new User(req.body);
 
-    user.generatePasswordHash(pw)
+    user.generateTokenSeed(pw)
       .then(newUser => newUser.save())
       .then(userRes => userRes.generateToken())
       .then(token => res.status(201).json(token))
       .catch(err => errorHandler(err, res));
   });
+
   router.get('/signin', basicAuth, (req, res) => {
     
     User.findOne({ username: req.userModelHeader.username })
