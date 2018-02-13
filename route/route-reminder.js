@@ -1,7 +1,7 @@
 'use strict';
 
-const Alert = require('../model/reminder.js');
-const bodyParser = require('body-parser');
+const Alert = require('../model/reminder');
+const bodyParser = require('body-parser').json();
 const errorHandler = require('../lib/error-handler');
 const bearerAuthMiddleware = require('../lib/bearer-auth-middleware');
 
@@ -9,6 +9,7 @@ const ERROR_MESSAGE = 'Authorization Failed';
 
 module.exports = router => {
   router.route('/reminder/:id?')
+    //this is working
     .post(bearerAuthMiddleware, bodyParser, (req, res) => {
 
       req.body.userId = req.user._id;
@@ -17,14 +18,14 @@ module.exports = router => {
         .then(createdAlert => res.status(201).json(createdAlert))
         .catch(err => errorHandler(err, res));
     })
-
+    // this is working
     .get(bearerAuthMiddleware, (req, res) => {
-      if(req.params._id) {
-        return Alert.findById(req.params._id)
+      if(req.params.id) {
+        return Alert.findById(req.params.id)
           .then(alert => res.status(200).json(alert))
           .catch(err => errorHandler(err, res));
       }
-
+      //this is working
       return Alert.find()
         .then(med => {
           let alertIds = med.map(alert => alert._id);
@@ -35,25 +36,21 @@ module.exports = router => {
     })
 
     .put(bearerAuthMiddleware, bodyParser, (req, res) => {
-      Alert.findById(req.params.id, req.body)
+      Alert.findById(req.params.id)
         .then(alert => {
-          if(alert.user.id === req.user._id) {
-            alert.frequency = req.body.frequency || alert.frequency;
-            alert.counter = req.body.counter || alert.counter;
-            return Alert.save();
-          }
-          return new Error('validation');
+          if(!alert) return Promise.reject(new Error('Authorization error'));
+          return alert.set(req.body).save();        
         })
         .then(() => res.sendStatus(204))
         .catch(err => errorHandler(err, res));
     })
-
+    //this is working
     .delete(bearerAuthMiddleware, (req, res) => {
       return Alert.findById(req.params.id)
         .then(alert => {
-          if(alert.userId.toString() === req.user._id.toString())
-            return alert.remove();
-          return errorHandler(new Error(ERROR_MESSAGE), res);
+          if(!alert) return Promise.reject(new Error('Path error'));
+          return alert.remove();
+          
         })
         .then(() => res.sendStatus(204))
         .catch(err => errorHandler(err, res));

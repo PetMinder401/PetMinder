@@ -1,7 +1,4 @@
 'use strict';
-
-
-
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const bcrypt = require('bcrypt');
@@ -12,6 +9,7 @@ const userModel = mongoose.Schema({
   email : { type: String, required: true, unique: true},
   password : { type: String, required: true},
   tokenSeed : { type: String, unique: true},
+  phoneNumber : { type: String, required: true},
 }, {timestamps: true});
 
 // This hashes the password and stores it in hashed form
