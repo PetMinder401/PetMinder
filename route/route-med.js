@@ -9,6 +9,7 @@ const ERROR_MESSAGE = 'Authorization Failed';
 
 module.exports = router => {
   router.route('/medication/:id?')
+    // this is working
     .post(bearerAuthMiddleware, bodyParser, (req, res) => {
 
       req.body.userId = req.user._id;
@@ -17,7 +18,7 @@ module.exports = router => {
         .then(createdMed => res.status(201).json(createdMed))
         .catch(err => errorHandler(err, res));
     })
-
+    // this is working
     .get(bearerAuthMiddleware, (req, res) => {
       if(req.params._id) {
         return Med.findById(req.params._id)
@@ -33,24 +34,17 @@ module.exports = router => {
         })
         .catch(err => errorHandler(err, res));
     })
-
+// this works
     .put(bearerAuthMiddleware, bodyParser, (req, res) => {
-      Med.findById(req.params.id, req.body)
+      Med.findById(req.params.id)
         .then(med => {
-          if(med.user.id === req.user._id) {
-            med.name = req.body.name || med.name;
-            med.dosage = req.body.species || med.dosage;
-            return Med.save();
-          }
-          if(req.body.name === undefined || req.body.dosage === undefined) {
-            throw new Error('validation');
-          }
-          return new Error('validation');
+          if(!med) return Promise.reject(new Error('objectid failed'));
+          return med.set(req.body).save();
         })
         .then(() => res.sendStatus(204))
         .catch(err => errorHandler(err, res));
     })
-
+// this works
     .delete(bearerAuthMiddleware, (req, res) => {
       return Med.findById(req.params.id)
         .then(med => {
