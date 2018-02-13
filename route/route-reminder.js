@@ -1,7 +1,7 @@
 'use strict';
 
-const Alert = require('../model/reminder.js');
-const bodyParser = require('body-parser');
+const Alert = require('../model/reminder');
+const bodyParser = require('body-parser').json();
 const errorHandler = require('../lib/error-handler');
 const bearerAuthMiddleware = require('../lib/bearer-auth-middleware');
 
