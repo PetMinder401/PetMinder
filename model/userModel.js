@@ -12,10 +12,6 @@ const userModel = mongoose.Schema({
   email : { type: String, required: true, unique: true},
   password : { type: String, required: true},
   tokenSeed : { type: String, unique: true},
-<<<<<<< HEAD
-  Pets: {type: mongoose.Schema.Types.ObjectId, ref: 'pet'},
-=======
->>>>>>> 0f996bc9888720911a9b4a548c1d750b13cd20e1
 }, {timestamps: true});
 
 // This hashes the password and stores it in hashed form
@@ -27,13 +23,8 @@ userModel.methods.generatePasswordHash = function(password) {
     .then(() => this)
     .catch(err => err);
 };
-<<<<<<< HEAD
-
-userModel.methods.compareTokenSeed = function(password) {
-=======
 //this takes the password from the request and hashes it to compare to hased password
 userModel.methods.comparePasswordHash = function(password) {
->>>>>>> 0f996bc9888720911a9b4a548c1d750b13cd20e1
   return new Promise((resolve, reject) => {
     bcrypt.compare(password, this.password, (err, valid) => {
       if(err) return reject(err);
