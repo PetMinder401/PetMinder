@@ -9,18 +9,12 @@ const ERROR_MESSAGE = 'Authorization Failed';
 
 module.exports = router => {
   router.route('/reminder/:id?')
-    //this is working
-    // .post(bearerAuthMiddleware, bodyParser, (req, res) => {
-    //   req.body.userId = req.user._id;
-    //   return new Alert(req.body).save()
-    //     .then(createdAlert => res.status(201).json(createdAlert))
-    //     .catch(err => errorHandler(err, res));
-    // })
-
+   
     .post(bearerAuthMiddleware, bodyParser, (req, res) => {
       req.body.userId = req.user._id;
       let reminder = new Alert(req.body);
-      reminder.generateReminderTimes(req.body.nooftimes)
+      reminder.generateReminderTimes(req.body.numOfTimes)
+        .then(() => reminder.createEndDate())
         .then(newreminder => newreminder.save())
         .then(() => res.sendStatus(201))
         .catch(err => errorHandler(err, res));
