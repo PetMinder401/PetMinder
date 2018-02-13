@@ -1,5 +1,7 @@
 'use strict';
 
+module.exports = {};
+
 const UserModel = require('../../model/userModel');
 const faker = require('faker');
 const Pet = require('../../model/pet');
@@ -11,16 +13,20 @@ mocks.userModel.createOne = () => {
   let result = {};
   result.password = faker.internet.password();
 
-  return new UserModel({
+  let user = new UserModel({
     username: faker.internet.userName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
-  })
-    .generatePasswordHash(result.password)
-    .then(user => result.user = user)
-    .then(user => user.generateToken())
-    .then(token => result.token = token)
-    .then(() => {
+  });
+
+  return user.generatePasswordHash(result.password)
+    .then(auth => {
+      result.auth = auth;
+      return auth.save();
+    })
+    .then(auth => auth.generateToken())
+    .then(token => {
+      result.token = token;
       return result;
     });
 };
@@ -50,3 +56,4 @@ mocks.pet.createOne = () => {
 //TODO: add mocks for reminder
 
 mocks.userModel.removeAll = () => Promise.all([UserModel.remove()]);
+mocks.pet.removeAll = () => Promise.all([Pet.remove()]);
