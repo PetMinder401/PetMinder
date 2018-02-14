@@ -48,7 +48,7 @@ describe('POST /api/v1/pets', function() {
           this.mockDataTwo = mock;
         });
     });
-    
+
     it('Should respond with a status code of 401 when given a bad token', () => {
       console.log('mock data two', this.mockDataTwo);
       return superagent.post(`${api}`)
@@ -62,7 +62,6 @@ describe('POST /api/v1/pets', function() {
         })
         .then(Promise.reject)
         .catch(res => {
-          console.log('response', res);
           expect(res.status).toBe(401);
         });
     });

@@ -32,8 +32,29 @@ To get started with this app, first fork the clone the repo to your machine. Hav
 ## Functionality
 
 ###Route Examples
+
+Create a new User
+
+```
+http POST http://localhost:3000/api/v1/signup username=lizzza email='bsob@bob.com' password=hello phoneNumber=+1555-555-555
+```
+
+Create a new Pet
+
 ```
 http POST :3000/api/v1/pet/userId={userId} name=buddy species=dog age=5 weight=10 'Authorization:Bearer {token}'
+```
+
+Create a new Reminder
+
+```
+http POST :3000/api/v1/reminder userId={userId} petId={petId} medication={medicationId} frequency=1 counter=30 'Authorization:Bearer {token}'
+```
+
+Create a new Medication
+
+```
+http POST :3000/api/v1/medication name=benedryl dosage=5  'Authorization:Bearer {token}'
 ```
 
 ## Data Structure
