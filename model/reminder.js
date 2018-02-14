@@ -9,7 +9,7 @@ const Reminder = mongoose.Schema({
   frequency : Number,
   startdate :{type: Date, default: Date.now() },
   enddate : {type: Date, default: Date.now()},
-  times: [],
+  times: Number,
   counter : Number,
 }, {timestamps: true});
 
@@ -17,18 +17,12 @@ const Reminder = mongoose.Schema({
 //create method to set start date
 Reminder.methods.generateReminderTimes = function(numberOfReminders) {
   return new Promise((resolve, reject) => {
-    if(!numberOfReminders) return reject(new Error('Authorization failed'));
+    if(!numberOfReminders) return reject(new Error('Authorization failed in reminder js no number'));
 
-    if (numberOfReminders === '1') this.times.push('0 7 * * *');
-    if (numberOfReminders === '2') {
-      this.times.push('0 7 * * *');
-      this.times.push('0 17 * * *');
-    }
-    if (numberOfReminders === '3') {
-      this.times.push('0 7 * * *');
-      this.times.push('30 12 * * *');
-      this.times.push('0 17 * * *');
-    }
+    if (numberOfReminders === '1') this.times = 1;
+    if (numberOfReminders === '2') this.times  =2;
+    if (numberOfReminders === '3') this.times = 3;
+     
     resolve(this);
   });
 };
@@ -36,7 +30,7 @@ Reminder.methods.createEndDate = function () {
   return new Promise((resolve, reject) => {
    
     
-    if(!this.frequency || !this.counter) return reject(new Error('Authorization failed'));
+    if(!this.frequency || !this.counter) return reject(new Error('Authorization failed in reminder.js no freq or counter'));
     let milliseconds = Date.now();
     milliseconds =  milliseconds + (this.frequency*this.counter*24*60*60*1000);
     this.enddate = new Date(milliseconds);
