@@ -12,7 +12,7 @@ const authToken = process.env.AUTHTOKEN;
 const client = require('twilio')(accountSid, authToken);
 const jobsArray = [];
 
-const ERROR_MESSAGE = 'Authorization Failed';
+
 
 module.exports = router => {
   router.route('/reminder/:id?')
@@ -23,13 +23,10 @@ module.exports = router => {
       reminder.generateReminderTimes(req.body.numOfTimes)
         .then(() => reminder.createEndDate())
         .then(newreminder => {
-          // console.log('new remoinder', newreminder);
           newreminder.save();
           scheduleJob(newreminder)
             .then(reminderObject => {
-              console.log('reminder object', reminderObject);
               jobsArray.push(reminderObject);
-              console.log('jobsArray', jobsArray);
             });
         })
         .then(() => res.sendStatus(201))

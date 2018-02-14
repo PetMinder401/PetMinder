@@ -20,7 +20,7 @@ Reminder.methods.generateReminderTimes = function(numberOfReminders) {
     if(!numberOfReminders) return reject(new Error('Authorization failed in reminder js no number'));
 
     if (numberOfReminders === '1') this.times = 1;
-    if (numberOfReminders === '2') this.times  =2;
+    if (numberOfReminders === '2') this.times = 2;
     if (numberOfReminders === '3') this.times = 3;
      
     resolve(this);
