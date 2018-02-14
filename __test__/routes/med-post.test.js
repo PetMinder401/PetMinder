@@ -7,37 +7,69 @@ const server = require('../../lib/server');
 require('jest');
 
 let port = process.env.PORT;
-let api = `:${port}/api/v1/pet`;
+let api = `:${port}/api/v1/medication`;
 
-describe('POST /api/v1/pets', function() {
+
+describe('POST /api/v1/medication', function() {
   beforeAll(() => server.start());
   afterAll(() => server.stop());
   afterAll(() => mocks.userModel.removeAll());
-  afterAll(() => mocks.pet.removeAll());
+  afterAll(() => mocks.medication.removeAll());
 
-  describe('Valid Request and Response', () => {
+  describe('Request and Response Validation', () => {
     beforeAll(() => {
-      return mocks.pet.createOne()
+      return mocks.medication.createOne()
         .then(mock => {
           this.mockData = mock;
         });
     });
 
     it('Should return a status code of 201', () => {
-      console.log('scott was here', this.mockData.user);
-
       return superagent.post(`${api}`)
         .set('Authorization', `Bearer ${this.mockData.user.token}`)
         .send({
-          name: faker.name.firstName(),
-          species: faker.random.words(1),
-          age: faker.random.number({min:1, max:15}),
-          weight: faker.random.number({min:5, max:100}), 
-          userId: this.mockData.user.user._id,
+          name: faker.internet.userName(),
+          dosage: faker.random.number({min:1, max:3}),
+          userId: this.mockData.user.user._id
         })
         .then(res => {
           expect(res.status).toEqual(201);
         });
     });
+
+    it('Should return an authorization error status code of 401', () => {
+      return superagent.post(`${api}`)
+        .set('Authorization', `Bearer shit`)
+        .send({
+          name: faker.internet.userName(),
+          dosage: faker.random.number({min:1, max:3}),
+          userId: this.mockData.user.user._id
+        })
+        .then(res => {
+          expect(res.status).toEqual(401);
+        })
+        .catch(err => expect(err.status).toEqual(401));
+    });
+
+    it('Should return a status code of - validation error 400', () => {
+      return superagent.post(`${api}`)
+        .set('Authorization', `Bearer ${this.mockData.user.token}`)
+        .send()
+        .catch(err => expect(err.status).toEqual(400));
+    });
+
+
   });
+
+
+
+
+
 });
+
+
+
+
+
+
+
