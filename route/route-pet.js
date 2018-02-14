@@ -10,7 +10,10 @@ const ERROR_MESSAGE = 'Authorization Failed';
 module.exports = router => {
   router.route('/pet/:id?')
   // this is working
+    
+    
     .post(bearerAuthMiddleware, bodyParser, (req, res) => {
+      console.log(req.headers);
       req.body.userId = req.user._id;
       return new Pet(req.body).save()
         .then(createdPet => res.status(201).json(createdPet))

@@ -1,23 +1,28 @@
 'use strict';
 
+module.exports = {};
+
 const UserModel = require('../../model/userModel');
+const Reminder = require('../../model/reminder');
 const faker = require('faker');
 const Pet = require('../../model/pet');
 
 const mocks = module.exports = {};
-mocks.userModel = {};
+mocks.auth = {};
 
-mocks.userModel.createOne = () => {
+mocks.auth.createOne = function() {
   let result = {};
-  result.password = faker.internet.password();
 
-  return new UserModel({
+  let user = new UserModel({
     username: faker.internet.userName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
-  })
-    .generatePasswordHash(result.password)
-    .then(user => result.user = user)
+    phoneNumber: faker.phone.phoneNumber(),
+  });
+
+  return user.generatePasswordHash(user.password)
+
+    .then(user => result.user = user)   
     .then(user => user.generateToken())
     .then(token => result.token = token)
     .then(() => {
@@ -27,26 +32,26 @@ mocks.userModel.createOne = () => {
 
 mocks.pet = {};
 mocks.pet.createOne = () => {
-  let resultMock = null;
+  let result = {};
 
-  return mocks.userModel.createOne()
-    .then(createdUserMock => resultMock = createdUserMock)
-    .then(createdUserMock => {
+  return mocks.auth.createOne()
+    .then(user => result.user = user)
+    .then(user => {
       return new Pet({
         name: faker.name.firstName(),
         species: faker.random.words(1),
         age: faker.random.number({min:1, max:15}), //age 1yr-15yrs -liza
         weight: faker.random.number({min:5, max:100}), //weight 5-100lbs -liza
-        userId: createdUserMock.user._id,
+        userId: user.user._id,
       }).save();
     })
     .then(pet => {
-      resultMock.pet = pet;
-      //console.log(resultMock);
-      return resultMock;
+      result.pet = pet;
+      return result;
     });
 };
 
 //TODO: add mocks for reminder
 
-mocks.userModel.removeAll = () => Promise.all([UserModel.remove()]);
+mocks.auth.removeAll = () => Promise.all([UserModel.remove()]);
+mocks.pet.removeAll = () => Promise.all([Pet.remove()]);
