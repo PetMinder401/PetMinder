@@ -11,9 +11,6 @@ mocks.auth = {};
 
 mocks.auth.createOne = function() {
   let result = {};
-  // result.password = faker.internet.password();
-  
-  // console.log('result password mock', result.password);
 
   let user = new UserModel({
     username: faker.internet.userName(),
@@ -22,14 +19,11 @@ mocks.auth.createOne = function() {
     phoneNumber: faker.phone.phoneNumber(),
   });
 
-  // console.log('user mock', user);
-
   return user.generatePasswordHash(user.password)
 
     .then(user => result.user = user)   
     .then(user => user.generateToken())
     .then(token => result.token = token)
-    // .then(console.log('!!!',result))  
     .then(() => {
       return result;
     });
@@ -42,8 +36,6 @@ mocks.pet.createOne = () => {
   return mocks.auth.createOne()
     .then(user => result.user = user)
     .then(user => {
-      // console.log(user);
-      // console.log('user', Object.keys(user));
       return new Pet({
         name: faker.name.firstName(),
         species: faker.random.words(1),
@@ -54,7 +46,6 @@ mocks.pet.createOne = () => {
     })
     .then(pet => {
       result.pet = pet;
-      console.log(result);
       return result;
     });
 };
