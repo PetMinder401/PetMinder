@@ -51,8 +51,6 @@ mocks.pet.createOne = () => {
     });
 };
 
-
-
 mocks.medication = {};
 mocks.medication.createOne = function(){
   let result = {};
