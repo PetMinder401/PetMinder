@@ -38,7 +38,7 @@ describe('POST /api/v1/medication', function() {
 
     it('Should return an authorization error status code of 401', () => {
       return superagent.post(`${api}`)
-        .set('Authorization', `Bearer shit`)
+        .set('Authorization', `Bearer blasphemousmistake`)
         .send({
           name: faker.internet.userName(),
           dosage: faker.random.number({min:1, max:3}),
@@ -56,5 +56,20 @@ describe('POST /api/v1/medication', function() {
         .send()
         .catch(err => expect(err.status).toEqual(400));
     });
+
+
   });
+
+
+
+
+
 });
+
+
+
+
+
+
+
+
