@@ -23,7 +23,7 @@ describe('GET /api/v1/pets', function() {
     });
 
     beforeAll(() => {
-      return superagent.get(`${api}`)
+      return superagent.get(`${api}/${this.mockData.pet._id}`)
         .set('Authorization', `Bearer ${this.mockData.user.token}`)
         .then(res => this.response = res);
     });
