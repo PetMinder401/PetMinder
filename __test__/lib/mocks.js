@@ -3,6 +3,7 @@
 module.exports = {};
 
 const UserModel = require('../../model/userModel');
+const Reminder = require('../../model/reminder');
 const faker = require('faker');
 const Pet = require('../../model/pet');
 

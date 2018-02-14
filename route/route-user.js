@@ -7,12 +7,10 @@ const basicAuth = require('../lib/basic-auth-middleware');
 
 module.exports = function(router) {
   router.post('/signup', bodyParser, (req, res) => {
-    console.log('password', req.body.password);
     let pw = req.body.password;
     delete req.body.password;
 
     let user = new User(req.body);
-    console.log('user', user)
 
     user.generatePasswordHash(pw)
       .then(newUser => newUser.save())
