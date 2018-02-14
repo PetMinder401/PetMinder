@@ -10,8 +10,6 @@ const ERROR_MESSAGE = 'Authorization Failed';
 module.exports = router => {
   router.route('/pet/:id?')
   // this is working
-    
-    
     .post(bearerAuthMiddleware, bodyParser, (req, res) => {
       console.log(req.headers);
       req.body.userId = req.user._id;
@@ -42,9 +40,7 @@ module.exports = router => {
         .then(pet => {
           if(!pet) return Promise.reject(new Error('Authorization error'));
           return pet.set(req.body).save();        
-        }
-        )
-    
+        })
         .then(() => res.sendStatus(204))
         .catch(err => errorHandler(err, res));
     })

@@ -72,7 +72,37 @@ mocks.medication.createOne = function(){
 };
 
 
-//TODO: add mocks for reminder
+mocks.reminder = {};
+mocks.reminder.createOne = () => {
+  let result = {};
+
+  return mocks.auth.createOne()
+    .then(user => result.user = user)
+    .then(user => {
+      return new Pet({
+        name: faker.name.firstName(),
+        species: faker.random.words(1),
+        age: faker.random.number({min:1, max:15}), //age 1yr-15yrs -liza
+        weight: faker.random.number({min:5, max:100}), //weight 5-100lbs -liza
+        userId: user.user._id,
+      }).save();
+    })
+    .then(pet => {
+      result.pet = pet;
+      return result;
+    })
+    .then(user => {
+      return new Medication({
+        name: faker.internet.userName(),
+        dosage: faker.random.number({min:1, max:3}),
+        userId: user.user._id,
+      }).save();
+    })
+    .then(medication => {
+      result.medication = medication;
+      return result;
+    });
+};
 
 mocks.auth.removeAll = () => Promise.all([UserModel.remove()]);
 mocks.pet.removeAll = () => Promise.all([Pet.remove()]);
