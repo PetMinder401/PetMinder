@@ -22,27 +22,36 @@ describe('PUT /api/v1/pet/:_id?', function() {
         });
     });
     
-
     beforeAll(() => {
       console.log('put mock data', this.mockData);
-      return superagent.post(`${api}`)
-        .send(this.mockData)
+      return superagent.put(`${api}/${this.mockData.pet._id}`)
+        .set('Authorization', `Bearer ${this.mockData.user.token}`)
+        .send({name: 'sprinkles'})
         .then(res => this.response = res)
         .then(() => {
-          return superagent.put(`${api}/${this.mockData.pet._id}`)
+          return superagent.get(`${api}/${this.mockData.pet._id}`)
             .set('Authorization', `Bearer ${this.mockData.user.token}`)
-            .send({name: 'sprinkles'})
-            .then(res => this.sent = res);   
+            .then(res => this.updated = res);
         });
     });
-  
     it('Should respond with a status code of 204', () => {
-      console.log('put mock token', this.mockData.user.token);
-      // return superagent.get(`${api}/${this.mockData.pet._id}`)
-      //   .set('Authorization', `Bearer ${this.mockData.user.token}`)
-      //   .then(res => {
-      //     expect(res.status).toBe(204);
+      expect(this.response.status).toBe(204);
+    });
+    it('Should respond with a valid token', () => {
+      expect(Array.isArray(this.updated.body)).toBeTruthy();
+    }); 
+  });
+
+  describe('Invalid request and response', () => {
+    it('Should respond an Authorization Error', () => {
+      return superagent.put(`${api}/${this.mockData.pet._id}`)
+        .catch(err => {
+          this.error = err;
+          expect(err.response.text).toMatch(/Authorization/);
         });
+    });
+    it('Should respond a 401 bad path when given an incorrect path', () => {
+      expect(this.error.status).toBe(401);
     });
   });
 });
