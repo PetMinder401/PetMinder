@@ -17,7 +17,7 @@ module.exports = router => {
       reminder.generateReminderTimes(req.body.numOfTimes)
         .then(() => reminder.createEndDate())
         .then(newreminder => {
-          console.log('new remoinder', newreminder);
+          // console.log('new remoinder', newreminder);
           newreminder.save();
           scheduleJob(newreminder);
         })
