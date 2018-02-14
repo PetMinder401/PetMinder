@@ -64,7 +64,7 @@ mocks.medication.createOne = function(){
       return new Medication({
         name: faker.internet.userName(),
         dosage: faker.random.number({min:1, max:3}),
-        userId: user.user._id
+        userId: user.user._id,
       }).save();
     })
     .then(medication => {

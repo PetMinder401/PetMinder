@@ -1,5 +1,7 @@
 # PetMinder
 
+___
+
 PetMinder is a service to help you remember when to give medication to your pets via text message or e-mail. 
 
 When you set up your PetMinder account to get started you will first want to put in your pets information (name, species, age, weight.) And then you may set up reminders for your pets by choosing the medication and setting how often the medication must be taken and for how many days. 
@@ -31,7 +33,7 @@ To get started with this app, first fork the clone the repo to your machine. Hav
 
 ## Functionality
 
-###Route Examples
+### Route Examples
 
 Create a new User
 
