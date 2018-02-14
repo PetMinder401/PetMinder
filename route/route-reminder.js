@@ -4,6 +4,7 @@ const Alert = require('../model/reminder');
 const bodyParser = require('body-parser').json();
 const errorHandler = require('../lib/error-handler');
 const bearerAuthMiddleware = require('../lib/bearer-auth-middleware');
+const scheduleJob = require('../lib/schedulejob');
 
 const ERROR_MESSAGE = 'Authorization Failed';
 
@@ -15,7 +16,12 @@ module.exports = router => {
       let reminder = new Alert(req.body);
       reminder.generateReminderTimes(req.body.numOfTimes)
         .then(() => reminder.createEndDate())
-        .then(newreminder => newreminder.save())
+        .then(newreminder => {
+          console.log('new remoinder', newreminder);
+          newreminder.save();
+          scheduleJob(newreminder);
+        })
+        
         .then(() => res.sendStatus(201))
         .catch(err => errorHandler(err, res));
     })
