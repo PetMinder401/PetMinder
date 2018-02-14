@@ -5,6 +5,12 @@ const bodyParser = require('body-parser').json();
 const errorHandler = require('../lib/error-handler');
 const bearerAuthMiddleware = require('../lib/bearer-auth-middleware');
 const scheduleJob = require('../lib/schedulejob');
+const schedule = require('node-schedule');
+require('dotenv').config();
+const accountSid = process.env.ACCOUNTSID;
+const authToken = process.env.AUTHTOKEN;
+const client = require('twilio')(accountSid, authToken);
+const jobsArray = [];
 
 const ERROR_MESSAGE = 'Authorization Failed';
 
@@ -19,9 +25,13 @@ module.exports = router => {
         .then(newreminder => {
           // console.log('new remoinder', newreminder);
           newreminder.save();
-          scheduleJob(newreminder);
+          scheduleJob(newreminder)
+            .then(reminderObject => {
+              console.log('reminder object', reminderObject);
+              jobsArray.push(reminderObject);
+              console.log('jobsArray', jobsArray);
+            });
         })
-        
         .then(() => res.sendStatus(201))
         .catch(err => errorHandler(err, res));
     })
