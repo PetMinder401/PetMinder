@@ -2,10 +2,10 @@
 
 module.exports = {};
 
+const Medication = require('../../model/medication');
 const UserModel = require('../../model/userModel');
-const Reminder = require('../../model/reminder');
-const faker = require('faker');
 const Pet = require('../../model/pet');
+const faker = require('faker');
 
 const mocks = module.exports = {};
 mocks.auth = {};
@@ -22,7 +22,7 @@ mocks.auth.createOne = function() {
 
   return user.generatePasswordHash(user.password)
 
-    .then(user => result.user = user)   
+    .then(user => result.user = user)
     .then(user => user.generateToken())
     .then(token => result.token = token)
     .then(() => {
@@ -51,7 +51,31 @@ mocks.pet.createOne = () => {
     });
 };
 
+
+
+mocks.medication = {};
+mocks.medication.createOne = function(){
+  let result = {};
+
+
+  return mocks.auth.createOne()
+    .then(user => result.user = user)
+    .then(user => {
+      return new Medication({
+        name: faker.internet.userName(),
+        dosage: faker.random.number({min:1, max:3}),
+        userId: user.user._id
+      }).save();
+    })
+    .then(medication => {
+      result.medication = medication;
+      return result;
+    });
+};
+
+
 //TODO: add mocks for reminder
 
 mocks.auth.removeAll = () => Promise.all([UserModel.remove()]);
 mocks.pet.removeAll = () => Promise.all([Pet.remove()]);
+mocks.medication.removeAll = () => Promise.all([Medication.remove()]);

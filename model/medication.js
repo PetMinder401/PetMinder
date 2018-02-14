@@ -1,7 +1,5 @@
 'use strict';
 
-const Reminder = require('./reminder');
-
 const mongoose = require('mongoose');
 
 const Medication = mongoose.Schema({
