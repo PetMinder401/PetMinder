@@ -40,6 +40,11 @@ describe('POST /api/v1/reminder', function() {
           expect(res.status).toEqual(201);
         });
     });
+    it('Should return a valid reminder object', () => {
+      expect(this.mockData.reminder).toHaveProperty('startdate');
+      expect(this.mockData.reminder).toHaveProperty('enddate');
+      expect(this.mockData.reminder).toHaveProperty('frequency');
+    });
   });
 
   describe('Invalid Request and Response', () => {

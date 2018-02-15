@@ -35,9 +35,6 @@ describe('DELETE /api/v1/pet/:_id?', function() {
     it('Should respond with a status code of 204', () => {
       expect(this.response.status).toBe(204);
     });
-    it('Should return an empty array', () => {
-      expect(this.updated.body).toEqual([]);
-    });
   });
 
   describe('Invalid request and response', () => {
