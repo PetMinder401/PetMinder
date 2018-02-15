@@ -36,7 +36,22 @@ describe('POST /api/v1/medication/:id?', function() {
     it('Should respond with a status code of 204', () => {
       expect(this.response.status).toBe(204);
     });
+    it('Should return an empty array', () => {
+      expect(this.updated.body).toEqual([]);
+    });
+  });
 
+  describe('Invalid request and response', () => {
+    it('Should respond an Authorization Error', () => {
+      return superagent.del(`${api}/${this.mockData.medication._id}`)
+        .catch(err => {
+          this.error = err;
+          expect(err.response.text).toMatch(/Authorization/);
+        });
+    });
+    it('Should respond a 401 bad path when given an incorrect path', () => {
+      expect(this.error.status).toBe(401);
+    });
   });
 });
 
