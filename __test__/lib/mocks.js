@@ -77,33 +77,52 @@ mocks.reminder = {};
 mocks.reminder.createOne = () => {
   let result = {};
 
-  let med = new Medication({
+  return new Medication({
     name: faker.internet.userName(),
     dosage: faker.random.number({min: 1, max: 3}),
-  });
-  console.log('medication', med);
-  return mocks.pet.createOne()
-    .then(data => result = data)
-    .then(data => {
-      console.log('data', data);
-      let reminder = new Reminder({
-        userId: result.pet.userId,
-        petId: result.pet._id,
-        medication : med._id,
+  }).save()
+    .then(medication => result.med = medication)
+    .then(() => mocks.pet.createOne())
+    .then(data => result.pet = data)      
+    .then(() => {
+      // console.log('data', result);
+      return new Reminder({
+        userId: result.pet.pet.userId,
+        petId: result.pet.pet._id,
+        medication : result.med._id,
         frequency : 1,
         times: faker.random.number({min:1, max:3}),
         counter : faker.random.number({min:1, max:3}),
-      });
-      console.log('reminder', reminder);
-      return reminder.generateReminderTimes(reminder.times)
-        .then(reminder => result.reminder = reminder)
-        .then(reminder => reminder.createEndDate())
-        .then(enddate => result.reminder.enddate = enddate)
-        .then(() => {
-          return result;
-        });
-    });
+      }).save();
+    })
+    .then(reminder => reminder.generateReminderTimes(reminder.times))
+    .then(reminder => result.reminder = reminder)
+    .then(reminder => reminder.createEndDate())
+    .then(enddate => result.reminder.enddate = enddate)
+    .then(() => result);
+
+ 
 };
+
+// data { med: { _id: 5a85d0647aa26c7b1739907d,
+//   name: 'Daisy.Auer51',
+//   dosage: 2,
+//   createdAt: 2018-02-15T18:24:36.454Z,
+//   updatedAt: 2018-02-15T18:24:36.454Z,
+//   __v: 0 },
+// pet:
+// { user:
+//    { user: [Object],
+//      token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IjFlYTU2OWYzYWViNTdkYzgzMmEzODUyNmM1NWM5ZTMxYTg0YWJmZGQ5NjM3ZDBmMDliYjdlZjRiN2M1MDIwNGViN2MwYWM2NDllN2U3ZTM2ZjM4MjE1ODBhMDk2NGJiNDU5NTY4OWI0MTVhNGFjY2RkZjFiY2IzNDJiMzg3OTFiIiwiaWF0IjoxNTE4NzE5MDc2fQ.2zFfzY05T3m8o5NZ3_aS8Ze1J_UoSNpGyPE3PhP0cYY' },
+//   pet: { _id: 5a85d0647aa26c7b1739907f,
+//      name: 'Flo',
+//      species: 'maroon',
+//      age: 9,
+//      weight: 58,
+//      userId: 5a85d0647aa26c7b1739907e,
+//      createdAt: 2018-02-15T18:24:36.544Z,
+//      updatedAt: 2018-02-15T18:24:36.544Z,
+//      __v: 0 } } }
 
 mocks.auth.removeAll = () => Promise.all([UserModel.remove()]);
 mocks.pet.removeAll = () => Promise.all([Pet.remove()]);
