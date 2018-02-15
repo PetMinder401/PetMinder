@@ -4,6 +4,7 @@ const faker = require('faker');
 const mocks = require('../lib/mocks');
 const superagent = require('superagent');
 const server = require('../../lib/server');
+const route = require('../../route/route-reminder');
 require('jest');
 
 let port = process.env.PORT;
@@ -12,7 +13,10 @@ let api = `:${port}/api/v1/reminder`;
 describe('POST /api/v1/reminder', function() {
   beforeAll(() => server.start());
   afterAll(() => server.stop());
+  afterAll(console.log(route.jobs));
   afterAll(() => mocks.userModel.removeAll());
+  afterAll(() => mocks.medication.removeAll());
+  afterAll(() => mocks.pet.removeAll());
   afterAll(() => mocks.reminder.removeAll());
 
   describe('Valid Request and Response', () => {
@@ -73,3 +77,5 @@ describe('POST /api/v1/reminder', function() {
     });
   });
 });
+
+console.log('hi**********');
