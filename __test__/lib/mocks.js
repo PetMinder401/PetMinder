@@ -52,60 +52,57 @@ mocks.pet.createOne = () => {
     });
 };
 
-// mocks.medication = {};
-// mocks.medication.createOne = function(){
-//   let result = {};
+mocks.medication = {};
+mocks.medication.createOne = function(){
+  let result = {};
 
 
-//   return mocks.auth.createOne()
-//     .then(user => result.user = user)
-//     .then(user => {
-//       return new Medication({
-//         name: faker.internet.userName(),
-//         dosage: faker.random.number({min:1, max:3}),
-//         userId: user.user._id,
-//       }).save();
-//     })
-//     .then(medication => {
-//       result.medication = medication;
-//       return result;
-//     });
-// };
+  return mocks.auth.createOne()
+    .then(user => result.user = user)
+    .then(user => {
+      return new Medication({
+        name: faker.internet.userName(),
+        dosage: faker.random.number({min:1, max:3}),
+        userId: user.user._id,
+      }).save();
+    })
+    .then(medication => {
+      result.medication = medication;
+      return result;
+    });
+};
 
 
 mocks.reminder = {};
 mocks.reminder.createOne = () => {
   let result = {};
 
-  let med = new Medication({
+  return new Medication({
     name: faker.internet.userName(),
     dosage: faker.random.number({min: 1, max: 3}),
-  });
-  console.log('medication', med);
-  return mocks.pet.createOne()
-    .then(data => result = data)
-    .then(data => {
-      console.log('data', data);
-      let reminder = new Reminder({
-        userId: result.pet.userId,
-        petId: result.pet._id,
-        medication : med._id,
+  }).save()
+    .then(medication => result.med = medication)
+    .then(() => mocks.pet.createOne())
+    .then(data => result.pet = data)      
+    .then(() => {
+      // console.log('data', result);
+      return new Reminder({
+        userId: result.pet.pet.userId,
+        petId: result.pet.pet._id,
+        medication : result.med._id,
         frequency : 1,
         times: faker.random.number({min:1, max:3}),
         counter : faker.random.number({min:1, max:3}),
-      });
-      console.log('reminder', reminder);
-      return reminder.generateReminderTimes(reminder.times)
-        .then(reminder => result.reminder = reminder)
-        .then(reminder => reminder.createEndDate())
-        .then(enddate => result.reminder.enddate = enddate)
-        .then(() => {
-          return result;
-        });
-    });
+      }).save();
+    })
+    .then(reminder => reminder.generateReminderTimes(reminder.times))
+    .then(reminder => result.reminder = reminder)
+    .then(reminder => reminder.createEndDate())
+    .then(enddate => result.reminder.enddate = enddate)
+    .then(() => result); 
 };
 
 mocks.auth.removeAll = () => Promise.all([UserModel.remove()]);
 mocks.pet.removeAll = () => Promise.all([Pet.remove()]);
-// mocks.medication.removeAll = () => Promise.all([Medication.remove()]);
+mocks.medication.removeAll = () => Promise.all([Medication.remove()]);
 mocks.reminder.removeAll = () => Promise.all([Reminder.remove()]);

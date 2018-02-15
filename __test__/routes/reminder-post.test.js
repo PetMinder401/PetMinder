@@ -26,17 +26,15 @@ describe('POST /api/v1/reminder', function() {
     it('Should return a status code of 201', () => {
       console.log('dean was here', this.mockData);
 
-      return superagent.post(`${api}/${this.mockData.pet.userId}`)
-        .set('Authorization', `Bearer ${this.mockData.user.token}`)
+      return superagent.post(`${api}`)
+        .set('Authorization', `Bearer ${this.mockData.pet.user.token}`)
         .send({
-          userId: this.mockData.pet.userId,
-          petId: this.mockData.pet._id,
-          medication : this.mockData.medication,
-          frequency : 1,
-          startdate : this.mockData.startdate,
-          enddate : this.mockData.enddate,
-          times: faker.random.number({min:1, max:3}),
-          counter : faker.random.number({min:1, max:3}),
+          userId: this.mockData.pet.pet.userId,
+          petId: this.mockData.pet.pet._id,
+          medication: this.mockData.med._id,
+          frequency: 1,
+          numOfTimes: faker.random.number({min:1, max:3}),
+          counter: faker.random.number({min:1, max:3}),
         })
         .then(res => {
           expect(res.status).toEqual(201);
