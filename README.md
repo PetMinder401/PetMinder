@@ -1,14 +1,32 @@
-PetMinder
-![petminder logo](https://github.com/PetMinder401/PetMinder/blob/dev_test/images/petminderlogo.png)
-==================
 
-PetMinder is a service to help you remember when to give medication to your pets via text message or e-mail. 
+<h1 align="center">
+  <br>
+<img src="https://github.com/PetMinder401/PetMinder/blob/dev_test/images/petminderlogo.png" alt="petminder" width="200">
+<br>
+</h1>
 
-When you set up your PetMinder account to get started you will first want to put in your pets information (name, species, age, weight.) And then you may set up reminders for your pets by choosing the medication and setting how often the medication must be taken and for how many days. 
+<h5 align="center">PetMinder is a service to help you remember when to give medication to your pets via text message or e-mail.</h5>
+
+<p align="center">
+  <a href="#getting-started">Getting Started</a> •
+  <a href="#functionality">Functionality</a> •
+  <a href="#route-examples">Route Examples</a> •
+  <a href="#data-structure">Data Structure</a> •
+  <a href="#tests">Tests</a> •
+  <a href="#credit">Credits</a> •
+  <a href="#credit">Creators</a>
+</p>
+
+[![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
+
+
+
+## Getting Started
+
+When you set up your PetMinder account to get started you will first want to put in your pets information (name, species, age, weight.) And then you may set up reminders for your pets by choosing the medication and setting how often the medication must be taken and for how many days.
 
 The app will text or e-mail you the reminders 1-3 times a day depending on how often it must be taken and will stop sending reminders once your pet has been sent it's final reminder.
 
-## Getting Started
 To get started with this app, first fork the clone the repo to your machine. Having ```HTTPie``` or ```Postman``` installed are recommended to run routing functionality. Once cloned navigate inside of the PetMinder folder to continue. Once in the PetMinder folder type ```npm i``` to install all dependencies needed to run the app. When done you should have the following dependencies:
 
 ```
@@ -33,7 +51,7 @@ To get started with this app, first fork the clone the repo to your machine. Hav
 
 ## Functionality
 
-### Route Examples
+## Route Examples
 
 Create a new User
 
@@ -62,3 +80,7 @@ http POST :3000/api/v1/medication name=benedryl dosage=5  'Authorization:Bearer 
 ## Data Structure
 
 ## Tests
+
+## Credits
+
+## Creators
