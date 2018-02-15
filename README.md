@@ -1,5 +1,5 @@
 PetMinder
-![Image of PetMinder](https://github.com/PetMinder401/PetMinder/images/petminderlogo.png)
+![petminder logo](https://github.com/PetMinder401/PetMinder/blob/dev_test/images/petminderlogo.png)
 ==================
 
 PetMinder is a service to help you remember when to give medication to your pets via text message or e-mail. 
