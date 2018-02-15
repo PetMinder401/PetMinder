@@ -49,15 +49,6 @@ module.exports = router => {
         .catch(err => errorHandler(err, res));
     })
 
-    .put(bearerAuthMiddleware, bodyParser, (req, res) => {
-      Alert.findById(req.params.id)
-        .then(alert => {
-          if(!alert) return Promise.reject(new Error('Authorization error'));
-          return alert.set(req.body).save();        
-        })
-        .then(() => res.sendStatus(204))
-        .catch(err => errorHandler(err, res));
-    })
     //this is working
     .delete(bearerAuthMiddleware, (req, res) => {
       return Alert.findById(req.params.id)
