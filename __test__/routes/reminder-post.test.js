@@ -12,12 +12,15 @@ let api = `:${port}/api/v1/reminder`;
 
 describe('POST /api/v1/reminder', function() {
   beforeAll(() => server.start());
+
   afterAll(() => server.stop());
-  afterAll(console.log(route.jobs));
+  
+
   afterAll(() => mocks.userModel.removeAll());
   afterAll(() => mocks.medication.removeAll());
   afterAll(() => mocks.pet.removeAll());
   afterAll(() => mocks.reminder.removeAll());
+  afterAll(() => server.stop());
 
   describe('Valid Request and Response', () => {
     beforeAll(() => {
