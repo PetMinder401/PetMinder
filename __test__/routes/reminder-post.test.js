@@ -13,7 +13,7 @@ describe('POST /api/v1/reminder', function() {
   beforeAll(() => server.start());
   afterAll(() => server.stop());
   afterAll(() => mocks.userModel.removeAll());
-  afterAll(() => mocks.pet.removeAll());
+  afterAll(() => mocks.reminder.removeAll());
 
   describe('Valid Request and Response', () => {
     beforeAll(() => {
@@ -24,17 +24,17 @@ describe('POST /api/v1/reminder', function() {
     });
 
     it('Should return a status code of 201', () => {
-      console.log('scott was here', this.mockData);
+      console.log('dean was here', this.mockData);
 
-      return superagent.post(`${api}/${this.mockData.userId}`)
+      return superagent.post(`${api}/${this.mockData.pet.userId}`)
         .set('Authorization', `Bearer ${this.mockData.user.token}`)
         .send({
-          userId: this.mockData.user._id,
+          userId: this.mockData.pet.userId,
           petId: this.mockData.pet._id,
-          medication : this.mockData.medication._id,
+          medication : this.mockData.medication,
           frequency : 1,
-          startdate : faker.date.recent(),
-          enddate : faker.date.future(),
+          startdate : this.mockData.startdate,
+          enddate : this.mockData.enddate,
           times: faker.random.number({min:1, max:3}),
           counter : faker.random.number({min:1, max:3}),
         })
@@ -53,15 +53,15 @@ describe('POST /api/v1/reminder', function() {
     });
 
     it('Should respond with a status code of 401 when given a bad token', () => {
-      return superagent.post(`${api}/${this.mockDataTwo.userId}`)
+      return superagent.post(`${api}/${this.mockDataTwo.pet.userId}`)
         .set('Authorization', `Bearer BADTOKEN`)
         .send({
-          userId: this.mockDataTwo.user._id,
+          userId: this.mockDataTwo.pet.userId,
           petId: this.mockDataTwo.pet._id,
-          medication : this.mockDataTwo.medication._id,
+          medication : this.mockDataTwo.medication,
           frequency : 1,
-          startdate : faker.date.recent(),
-          enddate : faker.date.future(),
+          startdate : this.mockDataTwo.startdate,
+          enddate : this.mockDataTwo.enddate,
           times: faker.random.number({min:1, max:3}),
           counter : faker.random.number({min:1, max:3}),
         })
