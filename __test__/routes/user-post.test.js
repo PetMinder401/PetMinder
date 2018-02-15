@@ -56,7 +56,7 @@ describe('POST /api/v1/signup', function() {
           phoneNumber: faker.phone.phoneNumber(),
         })
         .catch(res => {
-          console.log('response', res);
+          // console.log('response', res);
           expect(res.status).toBe(401);
         });
     });
