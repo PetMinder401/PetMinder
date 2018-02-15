@@ -52,25 +52,25 @@ mocks.pet.createOne = () => {
     });
 };
 
-// mocks.medication = {};
-// mocks.medication.createOne = function(){
-//   let result = {};
+mocks.medication = {};
+mocks.medication.createOne = function(){
+  let result = {};
 
 
-//   return mocks.auth.createOne()
-//     .then(user => result.user = user)
-//     .then(user => {
-//       return new Medication({
-//         name: faker.internet.userName(),
-//         dosage: faker.random.number({min:1, max:3}),
-//         userId: user.user._id,
-//       }).save();
-//     })
-//     .then(medication => {
-//       result.medication = medication;
-//       return result;
-//     });
-// };
+  return mocks.auth.createOne()
+    .then(user => result.user = user)
+    .then(user => {
+      return new Medication({
+        name: faker.internet.userName(),
+        dosage: faker.random.number({min:1, max:3}),
+        userId: user.user._id,
+      }).save();
+    })
+    .then(medication => {
+      result.medication = medication;
+      return result;
+    });
+};
 
 
 mocks.reminder = {};
@@ -99,32 +99,10 @@ mocks.reminder.createOne = () => {
     .then(reminder => result.reminder = reminder)
     .then(reminder => reminder.createEndDate())
     .then(enddate => result.reminder.enddate = enddate)
-    .then(() => result);
-
- 
+    .then(() => result); 
 };
-
-// data { med: { _id: 5a85d0647aa26c7b1739907d,
-//   name: 'Daisy.Auer51',
-//   dosage: 2,
-//   createdAt: 2018-02-15T18:24:36.454Z,
-//   updatedAt: 2018-02-15T18:24:36.454Z,
-//   __v: 0 },
-// pet:
-// { user:
-//    { user: [Object],
-//      token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IjFlYTU2OWYzYWViNTdkYzgzMmEzODUyNmM1NWM5ZTMxYTg0YWJmZGQ5NjM3ZDBmMDliYjdlZjRiN2M1MDIwNGViN2MwYWM2NDllN2U3ZTM2ZjM4MjE1ODBhMDk2NGJiNDU5NTY4OWI0MTVhNGFjY2RkZjFiY2IzNDJiMzg3OTFiIiwiaWF0IjoxNTE4NzE5MDc2fQ.2zFfzY05T3m8o5NZ3_aS8Ze1J_UoSNpGyPE3PhP0cYY' },
-//   pet: { _id: 5a85d0647aa26c7b1739907f,
-//      name: 'Flo',
-//      species: 'maroon',
-//      age: 9,
-//      weight: 58,
-//      userId: 5a85d0647aa26c7b1739907e,
-//      createdAt: 2018-02-15T18:24:36.544Z,
-//      updatedAt: 2018-02-15T18:24:36.544Z,
-//      __v: 0 } } }
 
 mocks.auth.removeAll = () => Promise.all([UserModel.remove()]);
 mocks.pet.removeAll = () => Promise.all([Pet.remove()]);
-// mocks.medication.removeAll = () => Promise.all([Medication.remove()]);
+mocks.medication.removeAll = () => Promise.all([Medication.remove()]);
 mocks.reminder.removeAll = () => Promise.all([Reminder.remove()]);
