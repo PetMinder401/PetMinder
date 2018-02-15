@@ -63,8 +63,6 @@ describe('POST /api/v1/reminder', function() {
           petId: this.mockDataTwo.pet._id,
           medication : this.mockDataTwo.medication,
           frequency : 1,
-          startdate : this.mockDataTwo.startdate,
-          enddate : this.mockDataTwo.enddate,
           times: faker.random.number({min:1, max:3}),
           counter : faker.random.number({min:1, max:3}),
         })
