@@ -11,7 +11,8 @@
     "start:watch": "nodemon index.js",
     "start:debug": "DEBUG=http* nodemon index.js",
     "test": "jest -i",
-    "test:watch": "jest -i --watchAll",
+    "test:watchtwo": "jest -i --watchAll",
+    "test:watch": "jest -i __test__/routes/reminder-post.test.js",
     "test:debug": "DEBUG=http* jest -i",
     "lint": "eslint .",
     "lint:test": "npm run lint && npm test",
@@ -67,7 +68,7 @@
   },
   "devDependencies": {
     "faker": "^4.1.0",
-    "jest-cli": "^22.2.2",
+    "jest-cli": "^22.3.0",
     "superagent": "^3.8.2"
   }
 }
