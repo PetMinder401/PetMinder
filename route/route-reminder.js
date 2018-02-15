@@ -12,7 +12,7 @@ const authToken = process.env.AUTHTOKEN;
 const client = require('twilio')(accountSid, authToken);
 const jobsArray = [];
 
-
+exports.jobs = jobsArray;
 
 module.exports = router => {
   router.route('/reminder/:id?')
@@ -20,16 +20,21 @@ module.exports = router => {
     .post(bearerAuthMiddleware, bodyParser, (req, res) => {
       req.body.userId = req.user._id;
       let reminder = new Alert(req.body);
+      console.log('reminder',reminder);
       reminder.generateReminderTimes(req.body.numOfTimes)
         .then(() => reminder.createEndDate())
         .then(newreminder => {
           newreminder.save();
-          scheduleJob(newreminder)
-            .then(reminderObject => {
-              jobsArray.push(reminderObject);
-            });
+          if(process.env.STATUS === 'production') {
+            scheduleJob(newreminder)
+              .then(reminderObject => {
+                jobsArray.push(reminderObject);
+              });
+          } 
         })
-        .then(() => res.sendStatus(201))
+        .then(() => {
+          res.sendStatus(201);
+        })
         .catch(err => errorHandler(err, res));
     })
     // this is working
@@ -60,4 +65,6 @@ module.exports = router => {
         .then(() => res.sendStatus(204))
         .catch(err => errorHandler(err, res));
     });
+
+
 };
