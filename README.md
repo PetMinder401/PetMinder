@@ -52,6 +52,10 @@ To get started with this app, first fork the clone the repo to your machine. Hav
 
 ## Route Examples
 #### POST:
+* Create a User, Pet, Medication or Reminder
+  * Add appropriate endpoint: signin, pet, medication, or reminder
+  * Add schema requirements
+  * Then add id and bearer authorization
 Create a new User
 
 ```
