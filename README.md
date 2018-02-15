@@ -55,7 +55,7 @@ To get started with this app, first fork the clone the repo to your machine. Hav
 Create a new User
 
 ```
-http POST http://localhost:3000/api/v1/signup username=lizzza email='bsob@bob.com' password=hello phoneNumber=+1555-555-555
+http POST http://localhost:3000/api/v1/signup username=testuser email='test@test.com' password=password phoneNumber=+1555-555-555
 ```
 
 Create a new Pet
@@ -76,6 +76,17 @@ Create a new Medication
 http POST :3000/api/v1/medication name=benedryl dosage=5  'Authorization:Bearer {token}'
 ```
 #### GET:
+* Retrieve a User, Pet, Medication or Reminder
+  * Add appropriate endpoint: signin, pet, medication, or reminder
+  * Then add id and bearer authorization
+#####Get All -
+```
+http GET :3000/api/v1/pet petId={userId}  'Authorization:Bearer {token}'
+```
+#####Get One -
+```
+http GET :3000/api/v1/medication name=benedryl dosage=5  'Authorization:Bearer {token}'
+```
 #### PUT:
 #### DELETE:
 
