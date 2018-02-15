@@ -2,6 +2,7 @@
 const mocks = require('../lib/mocks');
 const scheduleJob = require('../../lib/schedulejob');
 const server = require('../../lib/server');
+const schedule  =require('node-schedule');
 require('jest');
 
 
@@ -23,8 +24,11 @@ describe('Schedule Job', function() {
       .then(objectBack =>{
         expect(objectBack).toHaveProperty('callback');
         expect(objectBack).toHaveProperty('cancelNext');
+        objectBack.cancel();
       });
+      
 
+    // expect(true).toBeTruthy();
   });
 
 
