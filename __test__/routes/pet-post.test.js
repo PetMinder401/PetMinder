@@ -24,7 +24,7 @@ describe('POST /api/v1/pets', function() {
     });
 
     it('Should return a status code of 201', () => {
-      console.log('scott was here', this.mockData);
+      // console.log('scott was here', this.mockData);
 
       return superagent.post(`${api}`)
         .set('Authorization', `Bearer ${this.mockData.user.token}`)
