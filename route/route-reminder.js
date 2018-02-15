@@ -1,30 +1,45 @@
 'use strict';
 
-const Alert = require('../model/reminder.js');
-const bodyParser = require('body-parser');
+const Alert = require('../model/reminder');
+const bodyParser = require('body-parser').json();
 const errorHandler = require('../lib/error-handler');
 const bearerAuthMiddleware = require('../lib/bearer-auth-middleware');
+const scheduleJob = require('../lib/schedulejob');
+const schedule = require('node-schedule');
+require('dotenv').config();
+const accountSid = process.env.ACCOUNTSID;
+const authToken = process.env.AUTHTOKEN;
+const client = require('twilio')(accountSid, authToken);
+const jobsArray = [];
 
-const ERROR_MESSAGE = 'Authorization Failed';
+
 
 module.exports = router => {
   router.route('/reminder/:id?')
+   
     .post(bearerAuthMiddleware, bodyParser, (req, res) => {
-
       req.body.userId = req.user._id;
-
-      return new Alert(req.body).save()
-        .then(createdAlert => res.status(201).json(createdAlert))
+      let reminder = new Alert(req.body);
+      reminder.generateReminderTimes(req.body.numOfTimes)
+        .then(() => reminder.createEndDate())
+        .then(newreminder => {
+          newreminder.save();
+          scheduleJob(newreminder)
+            .then(reminderObject => {
+              jobsArray.push(reminderObject);
+            });
+        })
+        .then(() => res.sendStatus(201))
         .catch(err => errorHandler(err, res));
     })
-
+    // this is working
     .get(bearerAuthMiddleware, (req, res) => {
-      if(req.params._id) {
-        return Alert.findById(req.params._id)
+      if(req.params.id) {
+        return Alert.findById(req.params.id)
           .then(alert => res.status(200).json(alert))
           .catch(err => errorHandler(err, res));
       }
-
+      //this is working
       return Alert.find()
         .then(med => {
           let alertIds = med.map(alert => alert._id);
@@ -34,26 +49,13 @@ module.exports = router => {
         .catch(err => errorHandler(err, res));
     })
 
-    .put(bearerAuthMiddleware, bodyParser, (req, res) => {
-      Alert.findById(req.params.id, req.body)
-        .then(alert => {
-          if(alert.user.id === req.user._id) {
-            alert.frequency = req.body.frequency || alert.frequency;
-            alert.counter = req.body.counter || alert.counter;
-            return Alert.save();
-          }
-          return new Error('validation');
-        })
-        .then(() => res.sendStatus(204))
-        .catch(err => errorHandler(err, res));
-    })
-
+    //this is working
     .delete(bearerAuthMiddleware, (req, res) => {
       return Alert.findById(req.params.id)
         .then(alert => {
-          if(alert.userId.toString() === req.user._id.toString())
-            return alert.remove();
-          return errorHandler(new Error(ERROR_MESSAGE), res);
+          if(!alert) return Promise.reject(new Error('Path error'));
+          return alert.remove();
+          
         })
         .then(() => res.sendStatus(204))
         .catch(err => errorHandler(err, res));

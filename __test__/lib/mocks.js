@@ -1,22 +1,28 @@
 'use strict';
 
+module.exports = {};
+
+const Medication = require('../../model/medication');
+const Reminder = require('../../model/reminder');
 const UserModel = require('../../model/userModel');
-const faker = require('faker');
 const Pet = require('../../model/pet');
+const faker = require('faker');
 
 const mocks = module.exports = {};
-mocks.userModel = {};
+mocks.auth = {};
 
-mocks.userModel.createOne = () => {
+mocks.auth.createOne = function() {
   let result = {};
-  result.password = faker.internet.password();
 
-  return new UserModel({
+  let user = new UserModel({
     username: faker.internet.userName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
-  })
-    .generatePasswordHash(result.password)
+    phoneNumber: faker.phone.phoneNumber(),
+  });
+
+  return user.generatePasswordHash(user.password)
+
     .then(user => result.user = user)
     .then(user => user.generateToken())
     .then(token => result.token = token)
@@ -27,26 +33,76 @@ mocks.userModel.createOne = () => {
 
 mocks.pet = {};
 mocks.pet.createOne = () => {
-  let resultMock = null;
+  let result = {};
 
-  return mocks.userModel.createOne()
-    .then(createdUserMock => resultMock = createdUserMock)
-    .then(createdUserMock => {
+  return mocks.auth.createOne()
+    .then(user => result.user = user)
+    .then(user => {
       return new Pet({
         name: faker.name.firstName(),
         species: faker.random.words(1),
         age: faker.random.number({min:1, max:15}), //age 1yr-15yrs -liza
         weight: faker.random.number({min:5, max:100}), //weight 5-100lbs -liza
-        userId: createdUserMock.user._id,
+        userId: user.user._id,
       }).save();
     })
     .then(pet => {
-      resultMock.pet = pet;
-      //console.log(resultMock);
-      return resultMock;
+      result.pet = pet;
+      return result;
     });
 };
 
-//TODO: add mocks for reminder
+mocks.medication = {};
+mocks.medication.createOne = function(){
+  let result = {};
 
-mocks.userModel.removeAll = () => Promise.all([UserModel.remove()]);
+
+  return mocks.auth.createOne()
+    .then(user => result.user = user)
+    .then(user => {
+      return new Medication({
+        name: faker.internet.userName(),
+        dosage: faker.random.number({min:1, max:3}),
+        userId: user.user._id,
+      }).save();
+    })
+    .then(medication => {
+      result.medication = medication;
+      return result;
+    });
+};
+
+
+mocks.reminder = {};
+mocks.reminder.createOne = () => {
+  let result = {};
+
+  return new Medication({
+    name: faker.internet.userName(),
+    dosage: faker.random.number({min: 1, max: 3}),
+  }).save()
+    .then(medication => result.med = medication)
+    .then(() => mocks.pet.createOne())
+    .then(data => result.pet = data)      
+    .then(() => {
+      // console.log('data', result);
+      return new Reminder({
+        userId: result.pet.pet.userId,
+        petId: result.pet.pet._id,
+        medication : result.med._id,
+        frequency : 1,
+        times: faker.random.number({min:1, max:3}),
+        counter : faker.random.number({min:1, max:3}),
+      }).save();
+    })
+    .then(reminder => reminder.generateReminderTimes(reminder.times))
+    .then(reminder => result.reminder = reminder)
+    .then(reminder => reminder.createEndDate())
+    .then(enddate => result.reminder.enddate = enddate)
+    .then(() => result); 
+};
+
+mocks.auth.removeAll = () => Promise.all([UserModel.remove()]);
+mocks.pet.removeAll = () => Promise.all([Pet.remove()]);
+mocks.medication.removeAll = () => Promise.all([Medication.remove()]);
+mocks.reminder.removeAll = () => Promise.all([Reminder.remove()]);

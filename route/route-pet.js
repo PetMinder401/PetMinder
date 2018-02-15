@@ -11,10 +11,8 @@ module.exports = router => {
   router.route('/pet/:id?')
   // this is working
     .post(bearerAuthMiddleware, bodyParser, (req, res) => {
-      console.log('inside post for pet');
-
+      console.log(req.headers);
       req.body.userId = req.user._id;
-
       return new Pet(req.body).save()
         .then(createdPet => res.status(201).json(createdPet))
         .catch(err => errorHandler(err, res));
@@ -42,9 +40,7 @@ module.exports = router => {
         .then(pet => {
           if(!pet) return Promise.reject(new Error('Authorization error'));
           return pet.set(req.body).save();        
-        }
-        )
-    
+        })
         .then(() => res.sendStatus(204))
         .catch(err => errorHandler(err, res));
     })

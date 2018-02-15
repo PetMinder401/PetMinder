@@ -67,7 +67,7 @@
   },
   "devDependencies": {
     "faker": "^4.1.0",
-    "jest-cli": "^22.2.2",
+    "jest-cli": "^22.3.0",
     "superagent": "^3.8.2"
   }
 }

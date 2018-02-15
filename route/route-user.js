@@ -12,7 +12,7 @@ module.exports = function(router) {
 
     let user = new User(req.body);
 
-    user.generateTokenSeed(pw)
+    user.generatePasswordHash(pw)
       .then(newUser => newUser.save())
       .then(userRes => userRes.generateToken())
       .then(token => res.status(201).json(token))
