@@ -24,7 +24,7 @@ describe('POST /api/v1/reminder', function() {
     });
 
     it('Should return a status code of 201', () => {
-      console.log('dean was here', this.mockData);
+      // console.log('dean was here', this.mockData);
 
       return superagent.post(`${api}`)
         .set('Authorization', `Bearer ${this.mockData.pet.user.token}`)
@@ -39,6 +39,11 @@ describe('POST /api/v1/reminder', function() {
         .then(res => {
           expect(res.status).toEqual(201);
         });
+    });
+    it('Should return a valid reminder object', () => {
+      expect(this.mockData.reminder).toHaveProperty('startdate');
+      expect(this.mockData.reminder).toHaveProperty('enddate');
+      expect(this.mockData.reminder).toHaveProperty('frequency');
     });
   });
 

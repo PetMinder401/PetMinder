@@ -23,7 +23,7 @@ describe('PUT /api/v1/medication/:_id?', function() {
     });
     
     beforeAll(() => {
-      console.log('put mock data', this.mockData);
+      // console.log('put mock data', this.mockData);
       return superagent.put(`${api}/${this.mockData.medication._id}`)
         .set('Authorization', `Bearer ${this.mockData.user.token}`)
         .send({name: 'sprinkles'})
