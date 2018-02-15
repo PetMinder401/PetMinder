@@ -9,7 +9,7 @@ let port = process.env.PORT;
 let api = `:${port}/api/v1/medication`;
 
 
-describe('POST /api/v1/medication/:id?', function() {
+describe('DELETE /api/v1/medication/:id?', function() {
   beforeAll(() => server.start());
   afterAll(() => server.stop());
   afterAll(() => mocks.userModel.removeAll());
@@ -35,9 +35,6 @@ describe('POST /api/v1/medication/:id?', function() {
     });
     it('Should respond with a status code of 204', () => {
       expect(this.response.status).toBe(204);
-    });
-    it('Should return an empty array', () => {
-      expect(this.updated.body).toEqual([]);
     });
   });
 
