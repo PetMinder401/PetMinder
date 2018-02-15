@@ -20,12 +20,13 @@ describe('Schedule Job', function() {
   }
   );
   it('schedule job functionality', () =>{
-    return schedule.scheduleJob(this.reminder)
+    return scheduleJob(this.reminder)
       .then(objectBack =>{
         expect(objectBack).toHaveProperty('callback');
         expect(objectBack).toHaveProperty('cancelNext');
+        objectBack.cancel();
       });
-      // .then(object => object.cancel());
+      
 
     // expect(true).toBeTruthy();
   });
