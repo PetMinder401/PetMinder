@@ -1,6 +1,5 @@
 'use strict';
 
-const faker = require('faker');
 const mocks = require('../lib/mocks');
 const superagent = require('superagent');
 const server = require('../../lib/server');
@@ -34,10 +33,10 @@ describe('POST /api/v1/medication/:id?', function() {
             .then(res => this.updated = res);
         });
     });
-     it('Should respond with a status code of 204', () => {
+    it('Should respond with a status code of 204', () => {
       expect(this.response.status).toBe(204);
     });
 
-});
+  });
 });
 

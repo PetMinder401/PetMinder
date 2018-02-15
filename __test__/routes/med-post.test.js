@@ -9,7 +9,6 @@ require('jest');
 let port = process.env.PORT;
 let api = `:${port}/api/v1/medication`;
 
-
 describe('POST /api/v1/medication', function() {
   beforeAll(() => server.start());
   afterAll(() => server.stop());
@@ -30,7 +29,7 @@ describe('POST /api/v1/medication', function() {
         .send({
           name: faker.internet.userName(),
           dosage: faker.random.number({min:1, max:3}),
-          userId: this.mockData.user.user._id
+          userId: this.mockData.user.user._id,
         })
         .then(res => {
           expect(res.status).toEqual(201);
@@ -43,7 +42,7 @@ describe('POST /api/v1/medication', function() {
         .send({
           name: faker.internet.userName(),
           dosage: faker.random.number({min:1, max:3}),
-          userId: this.mockData.user.user._id
+          userId: this.mockData.user.user._id,
         })
         .then(res => {
           expect(res.status).toEqual(401);
