@@ -13,7 +13,7 @@
   <a href="#route-examples">Route Examples</a> •
   <a href="#data-structure">Data Structure</a> •
   <a href="#tests">Tests</a> •
-  <a href="#credit">Credits</a> •
+  <a href="#built-with">Built With</a> •
   <a href="#creators">Creators</a>
 </p>
 
@@ -26,7 +26,7 @@ PetMinder is an application designed to send a text message to remind clients wh
 
 ## Getting Started
 To use this application as a developer:
-* Install [NPM](https://www.npmjs.com/get-npm) and [HTTPie](https://httpie.org/)
+* Install [NPM](https://www.npmjs.com/get-npm), [HTTPie](https://httpie.org/) and [MongoDB](https://docs.mongodb.com/manual/administration/install-enterprise/)
 * Fork and clone this repository [PetMinder](https://github.com/PetMinder401/PetMinder)
 * NPM init your project
 * Add .gitignore and .travis.yml files
@@ -68,17 +68,12 @@ APP_SECRET='<secret>'
 ACCOUNTSID=<account sid>
 AUTHTOKEN=<auth token>
 ```
-
-When you set up your PetMinder account to get started you will first want to put in your pets information (name, species, age, weight.) And then you may set up reminders for your pets by choosing the medication and setting how often the medication must be taken and for how many days.
-
-The app will text or e-mail you the reminders 1-3 times a day depending on how often it must be taken and will stop sending reminders once your pet has been sent it's final reminder.
-
-To get started with this app, first fork the clone the repo to your machine. Having ```HTTPie``` or ```Postman``` installed are recommended to run routing functionality. Once cloned navigate inside of the PetMinder folder to continue. Once in the PetMinder folder type ```npm i``` to install all dependencies needed to run the app. When done you should have the following dependencies:
-
+* Start your server using nodemon or npm run start:watch
+* Connect to your database using npm run start-db
+* Open Mongo in the terminal, if needed.
 
 
 ## Functionality
-<br>
 As a user, I want to be able to sign up with the following required information: username, password, email address, and phone number. A user can securely log in to the app after a successful sign up.
 
 In order to keep track of the pets medication needs, a user will enter relevant information about their pets and the medicine they must take.
@@ -127,9 +122,21 @@ frequency=1 counter=30 numOfTimes=1 'Authorization:Bearer {token}'
   * Add appropriate endpoint: signin, pet, medication, or reminder
   * Then add the corresponding id for to find one and bearer authorization for each
 ##### Get All
-* Example for how to retrieve all the pets in your database
+* Example for how to retrieve all the Users in your database
+```
+http GET :3000/api/v1/signin 'Authorization:Bearer {token}'
+```
+* Example for how to retrieve all the Medications in your database
+```
+http GET :3000/api/v1/medication 'Authorization:Bearer {token}'
+```
+* Example for how to retrieve all the Pets in your database
 ```
 http GET :3000/api/v1/pet 'Authorization:Bearer {token}'
+```
+* Example for how to retrieve all the Reminders in your database
+```
+http GET :3000/api/v1/reminder 'Authorization:Bearer {token}'
 ```
 ##### Get One
 * Example for how to retrieve a User
@@ -140,7 +147,14 @@ http -a testuser:password :3000/api/v1/signin 'Authorization:Bearer {token}
 ```
 http GET :3000/api/v1/pet petId={petId} 'Authorization:Bearer {token}'
 ```
-
+* Example for how to retrieve a Medication
+```
+http GET :3000/api/v1/medication medication={medicationId} 'Authorization:Bearer {token}'
+```
+* Example for how to retrieve a Reminder
+```
+http GET :3000/api/v1/reminder reminder={reminderId} 'Authorization:Bearer {token}'
+```
 
 #### PUT:
 * Update a Pet or Medication
@@ -178,7 +192,7 @@ http DELETE :3000/api/v1/reminder reminder={reminder ID}
 
 ## Data Structure
 
-This schematic is an overview of the request/response cycle that our app relies on. An http request is sent from a client such as postman or httpie then taken as an input by the node server - the request may require middleware if data is being updated or posted, and authorization securely transmits the data. The routes that correspond with our four models have CRUD methods, but not all of them have all four. User only has POST and GET, while reminder has all methods but PUT. The routes call upon the respective models to determine how the request is to be handled. The data stored in the database may be manipulated depending on the nature of the request.
+This schematic is an overview of the request/response cycle that our app relies on. An http request is sent from a client such as postman or HTTPie then taken as an input by the node server - the request may require middleware if data is being updated or posted, and authorization securely transmits the data. The routes that correspond with our four models have CRUD methods, but not all of them have all four. User only has POST and GET, while reminder has all methods but PUT. The routes call upon the respective models to determine how the request is to be handled. The data stored in the database may be manipulated depending on the nature of the request.
 <br>
 <h1 align="center">
 <br>
@@ -187,9 +201,34 @@ This schematic is an overview of the request/response cycle that our app relies 
 </h1>
 
 ## Tests
+This project uses Travis-CI for continuous integration. Every Pull Request to the master branch is initiated will launch travis, which in turn runs Jest tests. Pull requests are not merged until all travis-ci tests pass.
 
+## Built With
 
-## Credits
-
+* [Javascript](https://www.javascript.com/)
+* [npm](https://www.npmjs.com/)
+* [Jest](https://www.npmjs.com/package/jest)
+* [Body-parser](https://www.npmjs.com/package/body-parser)
+* [Cors](https://www.npmjs.com/package/cors)
+* [Express](https://www.npmjs.com/package/express)
+* [jsonwebtoken](https://www.npmjs.com/package/json-web-token)
+* [Mongoose](http://mongoosejs.com/docs/api.html)
+* [Faker](https://www.npmjs.com/package/Faker)
+* [Superagent](https://www.npmjs.com/package/superagent)
+* [Twilio](https://www.twilio.com/)
+* [Node-schedule](https://github.com/node-schedule/node-schedule)
 
 ## Creators
+The Creators of PetMinder!
+
+<img src="https://github.com/PetMinder401/PetMinder/blob/dev_test/images/roger.jpeg" alt="roger" width="200">
+<p>Roger Davenport:</p>
+
+<img src="https://github.com/PetMinder401/PetMinder/blob/dev_test/images/dean.jpg" alt="dean" width="200">
+<p>Dean Murphy: Dean is a full-stack developer from Florida, based in Seattle. Having always possessed a love for building computers and gaming, he's come to Code Fellows to take that further and become a developer.</p>
+
+<img src="https://github.com/PetMinder401/PetMinder/blob/dev_test/images/liza.jpg" alt="liza" width="200">
+<p>Liza Oh: Liza is a full-stack Javascript developer. Her background in Veterinary medicine, management and photography developed her passion for team building, creativity and problem solving.</p>
+
+<img src="https://github.com/PetMinder401/PetMinder/blob/dev_test/images/joe.jpg" alt="joe" width="200">
+<p>Joseph Waine: Joseph is a front-end developer based in Seattle. He loves looking at things and thinking about how situations can be improved.</p>
