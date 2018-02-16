@@ -48,5 +48,14 @@ describe('DELETE /api/v1/reminder', function() {
     it('Should respond a 401 bad path when given an incorrect path', () => {
       expect(this.error.status).toBe(401);
     });
+    it('Should respond with a cast error Error', () => {
+      return superagent.del(`${api}/66666666666`)
+        .set('Authorization', `Bearer ${this.mockData.pet.user.token}`)
+        .catch(err => {
+          this.error = err;
+          expect(err.response.text).toMatch(/CastError/);
+        });
+      
+    });
   });
 });
