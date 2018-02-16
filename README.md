@@ -118,7 +118,6 @@ http POST :3000/api/v1/medication name=benedryl dosage=5
 http POST :3000/api/v1/reminder petId={petId} medication={medicationId}
 frequency=1 counter=30 numOfTimes=1 'Authorization:Bearer {token}'
 ```
-<br>
 
 #### GET:
 * Retrieve a User, Pet, Medication or Reminder
@@ -192,8 +191,10 @@ http DELETE :3000/api/v1/medication medication={medication ID}
 http DELETE :3000/api/v1/reminder reminder={reminder ID}
 'Authorization:Bearer {token}'
 ```
+## Tests
+This project uses Travis-CI for continuous integration. Every Pull Request to the master branch is initiated will launch travis, which in turn runs Jest tests. Pull requests are not merged until all travis-ci tests pass.
 
-## Data Structure
+## Data Flow
 
 This schematic is an overview of the request/response cycle that our app relies on. An http request is sent from a client such as postman or HTTPie then taken as an input by the node server - the request may require middleware if data is being updated or posted, and authorization securely transmits the data. The routes that correspond with our four models have CRUD methods, but not all of them have all four. User only has POST and GET, while reminder has all methods but PUT. The routes call upon the respective models to determine how the request is to be handled. The data stored in the database may be manipulated depending on the nature of the request.
 <br>
@@ -203,8 +204,6 @@ This schematic is an overview of the request/response cycle that our app relies 
 <br>
 </h1>
 
-## Tests
-This project uses Travis-CI for continuous integration. Every Pull Request to the master branch is initiated will launch travis, which in turn runs Jest tests. Pull requests are not merged until all travis-ci tests pass.
 
 ## Built With
 
