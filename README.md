@@ -49,6 +49,16 @@ To get started with this app, first fork the clone the repo to your machine. Hav
 ```
 
 ## Functionality
+<br>
+As a user, I want to be able to sign up with the following required information: username, password, email address, and phone number. A user can securely log in to the app after a successful sign up.
+
+In order to keep track of the pets medication needs, a user will enter relevant information about their pets and the medicine they must take.
+
+After pet and medicine information are entered, a user can then create a reminder for each pet that will notify the user as much as they decide.
+
+With the users phone number that is stored on signup, a user can choose to be notified via text message 1-3 times per day (morning, noon, and evening.)
+
+This app will help ensure owners give their pets the medicine they are supposed to take at the correct time.
 
 ## Route Examples
 
@@ -141,7 +151,14 @@ http DELETE :3000/api/v1/reminder reminder={reminder ID}
 
 ## Data Structure
 
-
+This schematic is an overview of the request/response cycle that our app relies on. An http request is sent from a client such as postman or httpi then taken as an input by the node server - the request may require middleware if data is being updated or posted, and authorization securely transmits the data. The routes that correspond with our four models have CRUD methods, but not all of them have all four. User only has POST and GET, while reminder has all methods but PUT. The routes call upon the respective models to determine how the request is to be handled. The data stored in the database may be manipulated depending on the nature of the request.
+<br>
+<h1 align="center">
+<br>
+<img src="https://github.com/PetMinder401/PetMinder/blob/dev_test/images/data-structure.png" alt="crudflow" width="800">
+<br>
+</h1>
+<br>
 ## Tests
 
 
