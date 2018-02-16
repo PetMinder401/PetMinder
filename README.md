@@ -18,6 +18,9 @@
 </p>
 
 [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
+
+<br>
+
 [![Build Status](https://travis-ci.org/PetMinder401/PetMinder.svg?branch=master)](https://travis-ci.org/PetMinder401/PetMinder) [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
 ## Overview
@@ -227,8 +230,8 @@ The Creators of PetMinder!
 <img src="https://github.com/PetMinder401/PetMinder/blob/dev_test/images/dean.jpg" alt="dean" width="200">
 <p>Dean Murphy: Dean is a full-stack developer from Florida, based in Seattle. Having always possessed a love for building computers and gaming, he's come to Code Fellows to take that further and become a developer.</p>
 
-<img src="https://github.com/PetMinder401/PetMinder/blob/dev_test/images/liza.jpg" alt="liza" width="200">
+<img src="https://github.com/PetMinder401/PetMinder/blob/dev_test/images/liza.jpg" alt="liza" width="400">
 <p>Liza Oh: Liza is a full-stack Javascript developer. Her background in Veterinary medicine, management and photography developed her passion for team building, creativity and problem solving.</p>
 
-<img src="https://github.com/PetMinder401/PetMinder/blob/dev_test/images/joe.jpg" alt="joe" width="200">
+<img src="https://github.com/PetMinder401/PetMinder/blob/dev_test/images/joe.jpg" alt="joe" width="400">
 <p>Joseph Waine: Joseph is a front-end developer based in Seattle. He loves looking at things and thinking about how situations can be improved.</p>
