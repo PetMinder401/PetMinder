@@ -155,7 +155,7 @@ This schematic is an overview of the request/response cycle that our app relies 
 <br>
 <h1 align="center">
 <br>
-<img src="https://github.com/PetMinder401/PetMinder/blob/dev_test/images/data-structure.png" alt="appflow" width="400">
+<img src="https://github.com/PetMinder401/PetMinder/blob/dev_test/images/data-structure.png" alt="crudflow" width="800">
 <br>
 </h1>
 <br>
