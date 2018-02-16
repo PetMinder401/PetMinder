@@ -34,7 +34,7 @@ module.exports = router => {
         })
         .catch(err => errorHandler(err, res));
     })
-// this works
+  // this works
     .put(bearerAuthMiddleware, bodyParser, (req, res) => {
       Med.findById(req.params.id)
         .then(med => {
@@ -44,7 +44,7 @@ module.exports = router => {
         .then(() => res.sendStatus(204))
         .catch(err => errorHandler(err, res));
     })
-// this works
+  // this works
     .delete(bearerAuthMiddleware, (req, res) => {
       return Med.findById(req.params.id)
         .then(med => {

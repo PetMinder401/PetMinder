@@ -37,14 +37,14 @@ describe('GET /api/v1/signin', () => {
   });
 
   describe('Invalid request and response', () => {
-    it('Should respond a not found or path error when given an incorrect path', () => {
+    it('Should respond with an authentication when not provided a token', () => {
       return superagent.get(`${api}/signin`)
         .catch(err => {
           this.error = err;
           expect(err.response.text).toMatch(/Authorization/);
         });
     });
-    it('Should respond a 401 bad path when given an incorrect path', () => {
+    it('Should respond a 401 bad path when not given a path', () => {
       expect(this.error.status).toBe(401);
     });
   });

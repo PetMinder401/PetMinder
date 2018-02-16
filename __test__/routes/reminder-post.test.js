@@ -4,7 +4,6 @@ const faker = require('faker');
 const mocks = require('../lib/mocks');
 const superagent = require('superagent');
 const server = require('../../lib/server');
-const route = require('../../route/route-reminder');
 require('jest');
 
 let port = process.env.PORT;
@@ -31,7 +30,6 @@ describe('POST /api/v1/reminder', function() {
     });
 
     it('Should return a status code of 201', () => {
-      // console.log('dean was here', this.mockData);
 
       return superagent.post(`${api}`)
         .set('Authorization', `Bearer ${this.mockData.pet.user.token}`)
@@ -80,5 +78,3 @@ describe('POST /api/v1/reminder', function() {
     });
   });
 });
-
-console.log('hi**********');

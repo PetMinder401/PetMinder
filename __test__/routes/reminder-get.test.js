@@ -37,7 +37,14 @@ describe('GET /api/v1/reminder', function() {
   });
 
   describe('Invalid request and response', () => {
-    it('Should respond a not found or path error when given an incorrect path', () => {
+    beforeAll(() => {
+      return mocks.reminder.createOne()
+        .then(mock => {
+          this.mockDataTwo = mock;
+        });
+    });
+
+    it('Should respond with an authorization error when not given a token', () => {
       return superagent.get(`${api}`)
         .catch(err => {
           this.error = err;
@@ -47,5 +54,14 @@ describe('GET /api/v1/reminder', function() {
     it('Should respond a 401 bad path when given an incorrect path', () => {
       expect(this.error.status).toBe(401);
     });
+    // it('Should respond with an objectid error if provided an invalid ID', () => {
+    //   return superagent.get(`${api}/4832820`)
+    //     .set('Authorization', `Bearer ${this.mockData.pet.user.token}`)
+    //     .catch(err => {
+    //       this.error = err;
+    //       console.log('reminder get err', err);
+    //       expect(err.text).toMatch(/not found/);
+    //     });
+    // });
   });
 });

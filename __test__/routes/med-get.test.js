@@ -37,7 +37,7 @@ describe('GET /api/v1/medication', function() {
   });
 
   describe('Medication - Invalid request and response', () => {
-    it('Should respond a not found or path error when given an incorrect path', () => {
+    it('Should respond an authorization error when not provided a token', () => {
       return superagent.get(`${api}`)
         .catch(err => {
           this.error = err;
@@ -46,6 +46,14 @@ describe('GET /api/v1/medication', function() {
     });
     it('Should respond a 401 bad path when given an incorrect path', () => {
       expect(this.error.status).toBe(401);
+    });
+    it('Should respond with an objectid error if provided an invalid ID', () => {
+      return superagent.get(`${api}/4832820`)
+        .set('Authorization', `Bearer ${this.mockData.user.token}`)
+        .catch(err => {
+          this.error = err;
+          expect(err.text).toMatch(/objectid/);
+        });
     });
   });
 });
