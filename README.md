@@ -14,14 +14,13 @@
   <a href="#data-structure">Data Structure</a> •
   <a href="#tests">Tests</a> •
   <a href="#credit">Credits</a> •
-  <a href="#credit">Creators</a>
+  <a href="#creators">Creators</a>
 </p>
 
 [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 
 
 ## Getting Started
-***
 
 When you set up your PetMinder account to get started you will first want to put in your pets information (name, species, age, weight.) And then you may set up reminders for your pets by choosing the medication and setting how often the medication must be taken and for how many days.
 
@@ -50,9 +49,9 @@ To get started with this app, first fork the clone the repo to your machine. Hav
 ```
 
 ## Functionality
-***
+
 ## Route Examples
-***
+
 Examples using HTTPie
 
 #### POST:
@@ -60,7 +59,9 @@ Examples using HTTPie
   * Add appropriate endpoint: signin, pet, medication, or reminder
   * Add schema requirements
   * Then add bearer authorization
-<br>
+
+
+
 * Create a new User
 ```
 http POST :3000/api/v1/signup username=testuser
@@ -139,13 +140,12 @@ http DELETE :3000/api/v1/reminder reminder={reminder ID}
 ```
 
 ## Data Structure
-***
+
 
 ## Tests
-***
+
 
 ## Credits
-***
+
 
 ## Creators
-***
