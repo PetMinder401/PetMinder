@@ -224,7 +224,7 @@ This schematic is an overview of the request/response cycle that our app relies 
 The Creators of PetMinder!
 
 <img src="https://github.com/PetMinder401/PetMinder/blob/dev_test/images/roger.jpeg" alt="roger" width="200">
-<p>Roger Davenport: <a>https://www.linkedin.com/in/roger-davenport/</a></p>
+<p>Roger Davenport: Roger is a fullStack JavaScript developer, excited about new challenges and trying to find solutions to real world problems. <a>https://www.linkedin.com/in/roger-davenport/</a></p>
 
 <br>
 <img src="https://github.com/PetMinder401/PetMinder/blob/dev_test/images/dean.jpg" alt="dean" width="200">
