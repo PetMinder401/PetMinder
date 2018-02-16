@@ -50,7 +50,7 @@ module.exports = router => {
         .then(pet => {
           if(pet.userId.toString() === req.user._id.toString())
             return pet.remove();
-          return errorHandler(new Error(ERROR_MESSAGE), res);
+          Promise.reject(new Error('objectid failed'));
         })
         .then(() => res.sendStatus(204))
         .catch(err => errorHandler(err, res));

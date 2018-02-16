@@ -1,6 +1,7 @@
 'use strict';
 
 const faker = require('faker');
+const Pet = require('../../model/pet');
 const mocks = require('../lib/mocks');
 const superagent = require('superagent');
 const server = require('../../lib/server');
@@ -39,6 +40,10 @@ describe('POST /api/v1/pets', function() {
           expect(res.status).toEqual(201);
         });
     });
+    it('Should create a valid pet object', () => {
+      expect(this.mockData.pet).toBeInstanceOf(Pet);
+    });
+    
   });
 
   describe('Invalid Request and Response', () => {
@@ -62,6 +67,18 @@ describe('POST /api/v1/pets', function() {
         .then(Promise.reject)
         .catch(res => {
           expect(res.status).toBe(401);
+        });
+    });
+    it('Should respond with a status code of 400 when given a bad body', () => {
+      return superagent.post(`${api}`)
+        .set('Authorization', `Bearer ${this.mockData.user.token}`)
+        .send({
+          weight: faker.random.number({min:5, max:100}), 
+          userId: this.mockDataTwo.user.user._id,
+        })
+        .then(Promise.reject)
+        .catch(res => {
+          expect(res.status).toBe(400);
         });
     });
   });

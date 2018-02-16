@@ -19,7 +19,7 @@ describe('Schedule Job', function() {
       });
   }
   );
-  it('schedule job functionality', () =>{
+  it('Should schedule a job with required properties', () =>{
     return scheduleJob(this.reminder)
       .then(objectBack =>{
         expect(objectBack).toHaveProperty('callback');

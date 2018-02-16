@@ -49,14 +49,25 @@ describe('DELETE /api/v1/medication/:id?', function() {
     it('Should respond a 401 bad path when given an incorrect path', () => {
       expect(this.error.status).toBe(401);
     });
-    it('Should respond with an objectid error if provided an invalid ID', () => {
-      return superagent.del(`${api}/4832820`)
-        .set('Authorization', `Bearer ${this.mockData.user.token}`)
-        .catch(err => {
-          this.error = err;
-          expect(err.text).toMatch(/objectid/);
-        });
-    });
+  });
+  // describe('Invalid request and response', () => {
+  it('Should respond an cast error Error', () => {
+    return superagent.del(`${api}/66666666666`)
+      .set('Authorization', `Bearer ${this.mockData.user.token}`)
+      .catch(err => {
+        this.error = err;
+        expect(err.response.text).toMatch(/CastError/);
+      });
+    
+  });
+  it('Should respond an cast error Error', () => {
+    return superagent.del(`${api}/`)
+      .set('Authorization', `Bearer ${this.mockData.user.token}`)
+      .catch(err => {
+        this.error = err;
+        expect(err.response.text).toMatch("TypeError: Cannot read property '_id' of null");
+      });
+    
   });
 });
 

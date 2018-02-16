@@ -9,9 +9,12 @@ describe('User Module', function() {
     it('should create a object', () => {
       expect(newUser).toBeInstanceOf(Object);
     });
-    it('should have a property of start date', () =>{
+    it('should have a property of username', () =>{
       expect(newUser).toHaveProperty('username');
     });
+    it('should have a property of email', () => {
+      expect(newUser).toHaveProperty('email');
+    })
     
     it('should should fail if no password passed to generatePasswordHash ', () =>{
       return newUser.generatePasswordHash()

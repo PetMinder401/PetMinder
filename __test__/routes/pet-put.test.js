@@ -50,8 +50,18 @@ describe('PUT /api/v1/pet/:_id?', function() {
           expect(err.response.text).toMatch(/Authorization/);
         });
     });
-    it('Should respond a 401 bad path when given an incorrect path', () => {
+    it('Should respond a 401 with no authorization given', () => {
       expect(this.error.status).toBe(401);
+    });
+    it('Should respond an object id error Error', () => {
+      return superagent.put(`${api}/66666666666`)
+        .set('Authorization', `Bearer ${this.mockData.user.token}`)
+        .send({})
+        .catch(err => {
+          this.error = err;
+          expect(err.response.text).toMatch(/CastError/);
+        });
+      
     });
   });
 });

@@ -54,14 +54,15 @@ describe('GET /api/v1/reminder', function() {
     it('Should respond a 401 bad path when given an incorrect path', () => {
       expect(this.error.status).toBe(401);
     });
-    // it('Should respond with an objectid error if provided an invalid ID', () => {
-    //   return superagent.get(`${api}/4832820`)
-    //     .set('Authorization', `Bearer ${this.mockData.pet.user.token}`)
-    //     .catch(err => {
-    //       this.error = err;
-    //       console.log('reminder get err', err);
-    //       expect(err.text).toMatch(/not found/);
-    //     });
-    // });
+    it('Should respond an cast error Error if id incorrect', () => {
+      return superagent.get(`${api}/66666666666`)
+        .set('Authorization', `Bearer ${this.mockData.pet.user.token}`)
+        .catch(err => {
+          this.error = err;
+          expect(err.response.text).toMatch(/CastError/);
+          expect(err.status).toBe(404);
+        });
+      
+    });
   });
 });
