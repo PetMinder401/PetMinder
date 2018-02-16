@@ -224,18 +224,17 @@ This schematic is an overview of the request/response cycle that our app relies 
 The Creators of PetMinder!
 
 <img src="https://github.com/PetMinder401/PetMinder/blob/dev_test/images/roger.jpeg" alt="roger" width="200">
-<p>Roger Davenport:</p>
+<p>Roger Davenport: <a>https://www.linkedin.com/in/roger-davenport/</a></p>
 
-<a>https://www.linkedin.com/in/roger-davenport/</a>
-
+<br>
 <img src="https://github.com/PetMinder401/PetMinder/blob/dev_test/images/dean.jpg" alt="dean" width="200">
-<p>Dean Murphy: Dean is a full-stack developer from Florida, based in Seattle. Having always possessed a love for building computers and gaming, he's come to Code Fellows to take that further and become a developer.</p>
-<a>https://www.linkedin.com/in/deanmurphyjr/</a>
+<p>Dean Murphy: Dean is a full-stack developer from Florida, based in Seattle. Having always possessed a love for building computers and gaming, he's come to Code Fellows to take that further and become a developer. <a>https://www.linkedin.com/in/deanmurphyjr/</a></p>
 
+<br>
 <img src="https://github.com/PetMinder401/PetMinder/blob/dev_test/images/liza.jpg" alt="liza" width="300">
-<p>Liza Oh: Liza is a full-stack Javascript developer. Her background in Veterinary medicine, management and photography developed her passion for team building, creativity and problem solving.</p>
-<a>https://www.linkedin.com/in/liza-oh/</a>
+<p>Liza Oh: Liza is a full-stack Javascript developer. Her background in Veterinary medicine, management and photography developed her passion for team building, creativity and problem solving. <a>https://www.linkedin.com/in/liza-oh/</a></p>
+
+<br>
 
 <img src="https://github.com/PetMinder401/PetMinder/blob/dev_test/images/joe.jpg" alt="joe" width="300">
-<p>Joseph Waine: Joseph is a front-end developer based in Seattle. He loves looking at things and thinking about how situations can be improved.</p>
-<a>https://www.linkedin.com/in/joe-waine/</a>
+<p>Joseph Waine: Joseph is a front-end developer based in Seattle. He loves looking at things and thinking about how situations can be improved. <a>https://www.linkedin.com/in/joe-waine/</a></p>
