@@ -56,7 +56,7 @@ describe('POST /api/v1/medication', function() {
         .send()
         .catch(err => expect(err.status).toEqual(400));
     });
-    it('Should respond with a status code of 401 when given a bad token', () => {
+    it('Should respond with a status code of 400 when given incomplete data', () => {
       return superagent.post(`${api}`)
         .set('Authorization', `Bearer ${this.mockData.user.token}`)
         .send({

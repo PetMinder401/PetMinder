@@ -31,8 +31,8 @@ module.exports = router => {
           let medIds = med.map(med => med._id);
 
           res.status(200).json(medIds);
-        })
-        .catch(err => errorHandler(err, res));
+        });
+        
     })
   // this works
     .put(bearerAuthMiddleware, bodyParser, (req, res) => {

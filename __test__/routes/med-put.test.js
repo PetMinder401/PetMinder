@@ -52,7 +52,7 @@ describe('PUT /api/v1/medication/:_id?', function() {
     });
     it('Should respond an Cast Error if incorrect med id', () => {
       return superagent.put(`${api}/666666`)
-      .set('Authorization', `Bearer ${this.mockData.user.token}`)
+        .set('Authorization', `Bearer ${this.mockData.user.token}`)
         .catch(err => {
           this.error = err;
           expect(err.response.text).toMatch(/CastError/);

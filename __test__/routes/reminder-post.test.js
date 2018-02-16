@@ -78,7 +78,21 @@ describe('POST /api/v1/reminder', function() {
           expect(res.status).toBe(401);
         });
     });
+    // it('Should respond with a status code of 400 when given an incomplete body', () => {
+    //   console.log('mock data', this.mockDataTwo.pet.user.token)
+    //   return superagent.post(`${api}`)
+    //     .set('Authorization', `${this.mockDataTwo.pet.user.token}`)
+    //     .send({
+    //       frequency : 1,
+    //       times: faker.random.number({min:1, max:3}),
+    //       counter : faker.random.number({min:1, max:3}),
+    //     })
+    //     .then(Promise.reject)
+    //     .catch(res => {
+    //       // console.log('response', res)
+    //       expect(res.status).toBe(400);
+    //     });
+    // });
   });
 });
 
-console.log('hi**********');
