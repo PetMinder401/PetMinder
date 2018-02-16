@@ -5,7 +5,7 @@
 <br>
 </h1>
 
-<h5 align="center">PetMinder is a service to help you remember when to give medication to your pets via text message</h5>
+<h5 align="center">PetMinder: medication reminders for your pet via text message</h5>
 
 <p align="center">
   <a href="#getting-started">Getting Started</a> •
@@ -18,16 +18,19 @@
 </p>
 
 [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
+[![Build Status](https://travis-ci.org/PetMinder401/PetMinder.svg?branch=master)](https://travis-ci.org/PetMinder401/PetMinder) [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+
+## Overview
+PetMinder is an application designed to send a text message to remind clients when to administer their pet's medications. Their Veterinary physician can fully set up the reminders for the client when the medication is prescribed. Reminders can be set for monthly medication like heartworm or flea/tick prevention or for daily medications. These reminders will increase the quality of life for both the pet and the owner.
 
 
 ## Getting Started
-
-When you set up your PetMinder account to get started you will first want to put in your pets information (name, species, age, weight.) And then you may set up reminders for your pets by choosing the medication and setting how often the medication must be taken and for how many days.
-
-The app will text or e-mail you the reminders 1-3 times a day depending on how often it must be taken and will stop sending reminders once your pet has been sent it's final reminder.
-
-To get started with this app, first fork the clone the repo to your machine. Having ```HTTPie``` or ```Postman``` installed are recommended to run routing functionality. Once cloned navigate inside of the PetMinder folder to continue. Once in the PetMinder folder type ```npm i``` to install all dependencies needed to run the app. When done you should have the following dependencies:
-
+To use this application as a developer:
+* Install [NPM](https://www.npmjs.com/get-npm) and [HTTPie](https://httpie.org/)
+* Fork and clone this repository [PetMinder](https://github.com/PetMinder401/PetMinder)
+* NPM init your project
+* Add .gitignore and .travis.yml files
+* Add the following dependencies
 ```
 "dependencies": {
     "bcrypt": "^1.0.3",
@@ -47,6 +50,32 @@ To get started with this app, first fork the clone the repo to your machine. Hav
     "superagent": "^3.8.2"
   }
 ```
+* Add the following .env files
+
+.test.env
+```
+PORT=4000
+MONGODB_URI='mongodb://localhost/petminder'
+APP_SECRET='<secret>'
+ACCOUNTSID=<account sid>
+AUTHTOKEN=<auth token>
+```
+.env
+```
+PORT=3000
+MONGODB_URI='mongodb://localhost/petminder'
+APP_SECRET='<secret>'
+ACCOUNTSID=<account sid>
+AUTHTOKEN=<auth token>
+```
+
+When you set up your PetMinder account to get started you will first want to put in your pets information (name, species, age, weight.) And then you may set up reminders for your pets by choosing the medication and setting how often the medication must be taken and for how many days.
+
+The app will text or e-mail you the reminders 1-3 times a day depending on how often it must be taken and will stop sending reminders once your pet has been sent it's final reminder.
+
+To get started with this app, first fork the clone the repo to your machine. Having ```HTTPie``` or ```Postman``` installed are recommended to run routing functionality. Once cloned navigate inside of the PetMinder folder to continue. Once in the PetMinder folder type ```npm i``` to install all dependencies needed to run the app. When done you should have the following dependencies:
+
+
 
 ## Functionality
 <br>
@@ -69,8 +98,6 @@ Examples using HTTPie
   * Add appropriate endpoint: signin, pet, medication, or reminder
   * Add schema requirements
   * Then add bearer authorization
-
-
 
 * Create a new User
 ```
@@ -151,14 +178,14 @@ http DELETE :3000/api/v1/reminder reminder={reminder ID}
 
 ## Data Structure
 
-This schematic is an overview of the request/response cycle that our app relies on. An http request is sent from a client such as postman or httpi then taken as an input by the node server - the request may require middleware if data is being updated or posted, and authorization securely transmits the data. The routes that correspond with our four models have CRUD methods, but not all of them have all four. User only has POST and GET, while reminder has all methods but PUT. The routes call upon the respective models to determine how the request is to be handled. The data stored in the database may be manipulated depending on the nature of the request.
+This schematic is an overview of the request/response cycle that our app relies on. An http request is sent from a client such as postman or httpie then taken as an input by the node server - the request may require middleware if data is being updated or posted, and authorization securely transmits the data. The routes that correspond with our four models have CRUD methods, but not all of them have all four. User only has POST and GET, while reminder has all methods but PUT. The routes call upon the respective models to determine how the request is to be handled. The data stored in the database may be manipulated depending on the nature of the request.
 <br>
 <h1 align="center">
 <br>
 <img src="https://github.com/PetMinder401/PetMinder/blob/dev_test/images/data-structure.png" alt="crudflow" width="600">
 <br>
 </h1>
-<br>
+
 ## Tests
 
 
