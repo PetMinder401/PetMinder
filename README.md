@@ -11,7 +11,7 @@
   <a href="#getting-started">Getting Started</a> •
   <a href="#functionality">Functionality</a> •
   <a href="#route-examples">Route Examples</a> •
-  <a href="#data-structure">Data Structure</a> •
+  <a href="#data-flow">Data Flow</a> •
   <a href="#tests">Tests</a> •
   <a href="#built-with">Built With</a> •
   <a href="#creators">Creators</a>
