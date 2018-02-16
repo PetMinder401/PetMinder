@@ -50,8 +50,16 @@ describe('PUT /api/v1/medication/:_id?', function() {
           expect(err.response.text).toMatch(/Authorization/);
         });
     });
+    it('Should respond an Cast Error if incorrect med id', () => {
+      return superagent.put(`${api}/666666`)
+      .set('Authorization', `Bearer ${this.mockData.user.token}`)
+        .catch(err => {
+          this.error = err;
+          expect(err.response.text).toMatch(/CastError/);
+        });
+    });
     it('Should respond a 401 bad path when given an incorrect path', () => {
-      expect(this.error.status).toBe(401);
+      expect(this.error.status).toBe(404);
     });
   });
 });

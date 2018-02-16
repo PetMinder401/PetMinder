@@ -64,5 +64,17 @@ describe('POST /api/v1/pets', function() {
           expect(res.status).toBe(401);
         });
     });
+    it('Should respond with a status code of 401 when given a bad token', () => {
+      return superagent.post(`${api}`)
+        .set('Authorization', `Bearer ${this.mockData.user.token}`)
+        .send({
+          weight: faker.random.number({min:5, max:100}), 
+          userId: this.mockDataTwo.user.user._id,
+        })
+        .then(Promise.reject)
+        .catch(res => {
+          expect(res.status).toBe(400);
+        });
+    });
   });
 });

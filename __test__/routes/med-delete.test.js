@@ -50,5 +50,24 @@ describe('DELETE /api/v1/medication/:id?', function() {
       expect(this.error.status).toBe(401);
     });
   });
+  // describe('Invalid request and response', () => {
+  it('Should respond an cast error Error', () => {
+    return superagent.del(`${api}/66666666666`)
+      .set('Authorization', `Bearer ${this.mockData.user.token}`)
+      .catch(err => {
+        this.error = err;
+        expect(err.response.text).toMatch(/CastError/);
+      });
+    
+  });
+  it('Should respond an cast error Error', () => {
+    return superagent.del(`${api}/`)
+      .set('Authorization', `Bearer ${this.mockData.user.token}`)
+      .catch(err => {
+        this.error = err;
+        expect(err.response.text).toMatch("TypeError: Cannot read property '_id' of null");
+      });
+    
+  });
 });
 
