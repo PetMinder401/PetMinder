@@ -21,6 +21,7 @@
 
 
 ## Getting Started
+***
 
 When you set up your PetMinder account to get started you will first want to put in your pets information (name, species, age, weight.) And then you may set up reminders for your pets by choosing the medication and setting how often the medication must be taken and for how many days.
 
@@ -49,55 +50,102 @@ To get started with this app, first fork the clone the repo to your machine. Hav
 ```
 
 ## Functionality
-
+***
 ## Route Examples
+***
+Examples using HTTPie
+
 #### POST:
 * Create a User, Pet, Medication or Reminder
   * Add appropriate endpoint: signin, pet, medication, or reminder
   * Add schema requirements
-  * Then add id and bearer authorization
-Create a new User
+  * Then add bearer authorization
+<br>
+* Create a new User
+```
+http POST :3000/api/v1/signup username=testuser
+email='test@test.com' password=password
+phoneNumber=+1555-555-555
+```
+* Create a new Pet
+```
+http POST :3000/api/v1/pet/ name=buddy species=dog
+age=5 weight=10 'Authorization:Bearer {token}'
+```
+* Create a new Medication
+```
+http POST :3000/api/v1/medication name=benedryl dosage=5
+'Authorization:Bearer {token}'
+```
+* Create a new Reminder
+```
+http POST :3000/api/v1/reminder petId={petId} medication={medicationId}
+frequency=1 counter=30 numOfTimes=1 'Authorization:Bearer {token}'
+```
+<br>
 
-```
-http POST http://localhost:3000/api/v1/signup username=testuser email='test@test.com' password=password phoneNumber=+1555-555-555
-```
-
-Create a new Pet
-
-```
-http POST :3000/api/v1/pet/userId={userId} name=buddy species=dog age=5 weight=10 'Authorization:Bearer {token}'
-```
-
-Create a new Reminder
-
-```
-http POST :3000/api/v1/reminder userId={userId} petId={petId} medication={medicationId} frequency=1 counter=30 'Authorization:Bearer {token}'
-```
-
-Create a new Medication
-
-```
-http POST :3000/api/v1/medication name=benedryl dosage=5  'Authorization:Bearer {token}'
-```
 #### GET:
 * Retrieve a User, Pet, Medication or Reminder
   * Add appropriate endpoint: signin, pet, medication, or reminder
-  * Then add id and bearer authorization
-#####Get All -
+  * Then add the corresponding id for to find one and bearer authorization for each
+##### Get All
+* Example for how to retrieve all the pets in your database
 ```
-http GET :3000/api/v1/pet petId={userId}  'Authorization:Bearer {token}'
+http GET :3000/api/v1/pet 'Authorization:Bearer {token}'
 ```
-#####Get One -
+##### Get One
+* Example for how to retrieve a User
 ```
-http GET :3000/api/v1/medication name=benedryl dosage=5  'Authorization:Bearer {token}'
+http -a testuser:password :3000/api/v1/signin 'Authorization:Bearer {token}
 ```
+* Example for how to retrieve a Pet
+```
+http GET :3000/api/v1/pet petId={petId} 'Authorization:Bearer {token}'
+```
+
+
 #### PUT:
+* Update a Pet or Medication
+  * Add appropriate endpoint: pet or medication
+  * Then add the corresponding id, what you'd like to update and bearer authorization
+
+* Update the weight for a Pet
+```
+http PUT :3000/api/v1/pet petId={petId} weight=20 'Authorization:Bearer {token}
+```
+* Update the dosage for a Medication
+```
+http PUT :3000/api/v1/medication medication={medicationId} dosage=20
+'Authorization:Bearer {token}'
+```
 #### DELETE:
+* Delete a Pet, Medication or Reminder
+  * Add appropriate endpoint: pet, medication or reminder
+  * Then add the corresponding id and bearer authorization
+
+* Delete a Pet
+```
+http DELETE :3000/api/v1/pet petId={petId} 'Authorization:Bearer {token}
+```
+* Delete a Medication
+```
+http DELETE :3000/api/v1/medication medication={medication ID}
+'Authorization:Bearer {token}'
+```
+* Delete a Reminder
+```
+http DELETE :3000/api/v1/reminder reminder={reminder ID}
+'Authorization:Bearer {token}'
+```
 
 ## Data Structure
+***
 
 ## Tests
+***
 
 ## Credits
+***
 
 ## Creators
+***
