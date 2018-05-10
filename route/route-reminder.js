@@ -20,7 +20,7 @@ module.exports = router => {
     .post(bearerAuthMiddleware, bodyParser, (req, res) => {
       req.body.userId = req.user._id;
       let reminder = new Alert(req.body);
-      console.log('reminder',reminder);
+      
       reminder.generateReminderTimes(req.body.numOfTimes)
         .then(() => reminder.createEndDate())
         .then(newreminder => {

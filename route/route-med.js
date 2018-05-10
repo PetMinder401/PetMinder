@@ -31,10 +31,10 @@ module.exports = router => {
           let medIds = med.map(med => med._id);
 
           res.status(200).json(medIds);
-        })
-        .catch(err => errorHandler(err, res));
+        });
+        
     })
-// this works
+  // this works
     .put(bearerAuthMiddleware, bodyParser, (req, res) => {
       Med.findById(req.params.id)
         .then(med => {
@@ -44,14 +44,15 @@ module.exports = router => {
         .then(() => res.sendStatus(204))
         .catch(err => errorHandler(err, res));
     })
-// this works
+  // this works
     .delete(bearerAuthMiddleware, (req, res) => {
+      
       return Med.findById(req.params.id)
-        .then(med => {
-          //console.log(med._id);
-          if(med === null)
-            return errorHandler(new Error('ObjectID failed'), res);
-          return med.remove();
+        .then(Med => {
+          
+          if(Med._id.toString() === req.params.id.toString())
+            return Med.remove();
+          Promise.reject(new Error('objectid failed'));
         })
         .then(() => res.sendStatus(204))
         .catch(err => errorHandler(err, res));

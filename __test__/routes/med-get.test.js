@@ -47,5 +47,14 @@ describe('GET /api/v1/medication', function() {
     it('Should respond a 401 bad path when given an incorrect path', () => {
       expect(this.error.status).toBe(401);
     });
+    it('Should respond an object id error Error', () => {
+      return superagent.get(`${api}/66666666666`)
+        .set('Authorization', `Bearer ${this.mockData.user.token}`)
+        .catch(err => {
+          this.error = err;
+          expect(err.response.text).toMatch(/CastError/);
+        });
+      
+    });
   });
 });
